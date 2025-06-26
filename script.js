@@ -1,9 +1,54 @@
 // Enhanced Portfolio Site with GitHub Integration
 class Portfolio {
     constructor() {
+        this.initLoadingScreen();
         this.init();
         this.setupEventListeners();
         this.loadGitHubProjects();
+    }
+
+    initLoadingScreen() {
+        // Initialize loading screen
+        const loadingScreen = document.getElementById('loading-screen');
+        const progressBar = document.querySelector('.progress-bar');
+        const loadingText = document.querySelector('.loading-word');
+        
+        if (!loadingScreen) return;
+
+        // Simulate loading progress
+        let progress = 0;
+        const loadingMessages = ['Initializing', 'Loading Assets', 'Preparing Experience', 'Almost Ready'];
+        let messageIndex = 0;
+
+        const loadingInterval = setInterval(() => {
+            progress += Math.random() * 15 + 5;
+            
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(loadingInterval);
+                
+                // Hide loading screen after a brief delay
+                setTimeout(() => {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                    }, 500);
+                }, 300);
+            }
+            
+            // Update progress bar
+            if (progressBar) {
+                progressBar.style.width = `${progress}%`;
+            }
+            
+            // Update loading text
+            if (loadingText && progress > messageIndex * 25) {
+                if (messageIndex < loadingMessages.length - 1) {
+                    messageIndex++;
+                    loadingText.textContent = loadingMessages[messageIndex];
+                }
+            }
+        }, 100);
     }
 
     init() {
@@ -448,10 +493,20 @@ const styleSheet = document.createElement('style');
 styleSheet.textContent = additionalStyles;
 document.head.appendChild(styleSheet);
 
+// Initialize mouse trail effect
+InteractiveShapes.createMouseTrail();
+
 // Initialize the portfolio when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new Portfolio();
 });
+
+// Fallback initialization if DOMContentLoaded already fired
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => new Portfolio());
+} else {
+    new Portfolio();
+}
 
 // Add some utility functions for enhanced interactivity
 class InteractiveShapes {
@@ -500,6 +555,3 @@ class InteractiveShapes {
         });
     }
 }
-
-// Initialize mouse trail effect
-InteractiveShapes.createMouseTrail();
