@@ -7,8 +7,8 @@
     <!-- Primary Meta Tags -->
     <title>Joseph Mazzini - Computer Science Student & Full-Stack Developer | Mazzlabs</title>
     <meta name="title" content="Joseph Mazzini - Computer Science Student & Full-Stack Developer | Mazzlabs">
-    <meta name="description" content="Computer Science student at Rogue Community College passionate about building end-to-end solutions. Creator of Veritas-Lens, RipCity Ticket Dispatch, and Robust-Cite. Specializing in React, TypeScript, Node.js, and ML integration.">
-    <meta name="keywords" content="Joseph Mazzini, Computer Science Student, Full-Stack Developer, React, TypeScript, Node.js, Machine Learning, Veritas-Lens, RipCity Ticket Dispatch, Robust-Cite, Rogue Community College, Mazzlabs">
+    <meta name="description" content="Computer Science student at Rogue Community College transferring to Oregon State University in 2025. Creator of Veritas-Lens, RipCity Ticket Dispatch, and Robust-Cite. Specializing in React, TypeScript, Node.js, and ML integration.">
+    <meta name="keywords" content="Joseph Mazzini, Computer Science Student, Full-Stack Developer, React, TypeScript, Node.js, Machine Learning, Veritas-Lens, RipCity Ticket Dispatch, Robust-Cite, Rogue Community College, Oregon State University, OSU Transfer, Mazzlabs">
     <meta name="author" content="Joseph Mazzini">
     <meta name="robots" content="index, follow">
     <meta name="language" content="English">
@@ -32,7 +32,7 @@
     <meta property="twitter:image" content="https://mazzlabs.works/assets/joseph-mazzini-portfolio.jpg">
     
     <!-- Professional & Academic Meta -->
-    <meta name="academic-affiliation" content="Rogue Community College - Computer Science">
+    <meta name="academic-affiliation" content="Rogue Community College - Computer Science, Transferring to Oregon State University Fall 2025">
     <meta name="professional-focus" content="Full-Stack Development, Machine Learning Integration, TypeScript, React, Node.js">
     <meta name="contact-email" content="joseph@mazzlabs.works">
     <meta name="contact-academic" content="joseph.mazzini.9770@student.roguecc.edu">
@@ -154,8 +154,8 @@
                     <span class="role">Computer Science Student</span>
                 </h1>
                 <p class="hero-description">
-                    Building robust, end-to-end solutions that matter. Currently pursuing Computer Science at Rogue Community College 
-                    while developing production applications that solve real-world problems.
+                    Building robust, end-to-end solutions that matter. Currently finishing my associates degree at Rogue Community College 
+                    before transferring to Oregon State University in fall 2025 to pursue my Bachelor of Science in Computer Science.
                 </p>
                 <div class="hero-buttons">
                     <a href="#projects" class="btn btn-primary">
@@ -180,17 +180,17 @@
             </div>
             <div class="about-content">
                 <div class="about-text">
-                    <p>I'm a Computer Science student at Rogue Community College with an unwavering passion for building and learning. 
-                    What drives me is the pursuit of elegant solutions—those moments when complex problems distill into clean, 
-                    robust architectures that just work.</p>
+                    <p>I'm a Computer Science student at Rogue Community College with a passion for building things that solve real problems. 
+                    Currently completing my associates degree before transferring to Oregon State University in fall 2025, where I'll continue 
+                    at the junior level working toward my Bachelor of Science in Computer Science.</p>
                     
-                    <p>My journey began with a fascination for machine learning and data science, diving deep into Python and statistical models. 
-                    But as technology evolved and I gained perspective on where I fit in this rapidly changing field, I realized something crucial: 
-                    the most impactful ML isn't just about the algorithm—it's about how seamlessly it integrates into the user experience.</p>
+                    <p>My journey started with machine learning and data science, spending countless hours with Python and statistical models. 
+                    But as I built more projects, I realized something: the most impactful ML isn't just about the algorithm. It's about 
+                    how well it integrates into the user experience.</p>
                     
-                    <p>This realization shifted my focus toward full-stack development. I wanted to build the complete ecosystem around intelligent features, 
-                    not just the models themselves. Today, I architect end-to-end solutions where machine learning becomes a natural part of the 
-                    product, invisible to users but essential to the experience.</p>
+                    <p>This insight shifted my focus toward full-stack development. I wanted to build complete systems around intelligent features, 
+                    not just isolated models. Now I create end-to-end solutions where machine learning enhances the product naturally, 
+                    working behind the scenes to improve user experiences.</p>
 
                     <div class="featured-projects">
                         <h3>Featured Work</h3>
@@ -608,6 +608,14 @@
     
     <!-- Fallback loading screen removal -->
     <script>
+        // Super aggressive loading screen removal
+        window.addEventListener('load', () => {
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                loadingScreen.style.display = 'none';
+            }
+        });
+        
         // Simple fallback to remove loading screen if it's still visible after 3 seconds
         setTimeout(() => {
             const loadingScreen = document.getElementById('loading-screen');
@@ -618,6 +626,14 @@
                 }, 500);
             }
         }, 3000);
+        
+        // Nuclear option - remove after 1 second no matter what
+        setTimeout(() => {
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                loadingScreen.remove();
+            }
+        }, 1000);
     </script>
 </body>
 </html>

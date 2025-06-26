@@ -299,14 +299,43 @@ class Portfolio {
 
         try {
             // Replace 'j-mazz' with your actual GitHub username
-            const response = await fetch('https://api.github.com/users/j-mazz/repos?sort=updated&per_page=6');
+            const response = await fetch('https://api.github.com/users/j-mazz/repos?sort=updated&per_page=20');
             
             if (!response.ok) {
                 throw new Error('Failed to fetch repositories');
             }
             
             const repos = await response.json();
-            const filteredRepos = repos.filter(repo => !repo.fork && repo.stargazers_count >= 0);
+            
+            // Filter for substantial projects only
+            const excludeRepos = [
+                'j-mazz.github.io',
+                'mazzlabs.github.io', 
+                '.github',
+                'config',
+                'dotfiles',
+                'practice',
+                'tutorial',
+                'hello-world',
+                'test'
+            ];
+            
+            const filteredRepos = repos.filter(repo => {
+                // Skip forks
+                if (repo.fork) return false;
+                
+                // Skip basic/config repos by name
+                const repoName = repo.name.toLowerCase();
+                if (excludeRepos.some(exclude => repoName.includes(exclude))) return false;
+                
+                // Skip repos without description or very short descriptions
+                if (!repo.description || repo.description.length < 20) return false;
+                
+                // Skip repos with very few commits (likely basic/empty repos)
+                if (repo.size < 10) return false;
+                
+                return true;
+            });
             
             projectsGrid.innerHTML = '';
             
