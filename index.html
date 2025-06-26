@@ -605,5 +605,19 @@
 
     <script src="script.js"></script>
     <script src="https://s.pageclip.co/v1/pageclip.js" charset="utf-8"></script>
+    
+    <!-- Fallback loading screen removal -->
+    <script>
+        // Simple fallback to remove loading screen if it's still visible after 3 seconds
+        setTimeout(() => {
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen && loadingScreen.style.display !== 'none') {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 500);
+            }
+        }, 3000);
+    </script>
 </body>
 </html>

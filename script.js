@@ -1,3 +1,17 @@
+// Immediate loading screen removal as backup
+document.addEventListener('DOMContentLoaded', () => {
+    const loadingScreen = document.getElementById('loading-screen');
+    if (loadingScreen) {
+        // Start the removal process immediately as backup
+        setTimeout(() => {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 500);
+        }, 1500);
+    }
+});
+
 // Enhanced Portfolio Site with GitHub Integration
 class Portfolio {
     constructor() {
