@@ -13,7 +13,7 @@ services:
   routes:
   - path: /
   health_check:
-    http_path: /
+    http_path: /health
   envs:
   - key: SECRET_KEY
     scope: RUN_TIME
