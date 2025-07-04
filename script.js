@@ -620,6 +620,7 @@ class BlackjackGame {
                 winnings = bet; // Get bet back
             }
             
+            // Calculate net change for display (since bet was already deducted)
             const netWinnings = winnings - bet; // Net gain/loss for display
             this.handResults.push(`${result} ${netWinnings > 0 ? '+' : netWinnings < 0 ? '' : ''}$${Math.abs(netWinnings)}`);
             this.balance += winnings;
