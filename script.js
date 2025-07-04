@@ -229,7 +229,7 @@ class BlackjackGame {
 
     createGameHTML() {
         this.container.innerHTML = `
-            <div class="game-container">
+            <div id="blackjack" class="blackjack-game">
                 <div class="game-header">
                     <h3>🃏 Advanced Blackjack</h3>
                     <div class="balance">Balance: $<span id="balance">${this.balance}</span></div>
@@ -246,7 +246,7 @@ class BlackjackGame {
                     </div>
                     <div id="gameMessage" class="game-message">
                         Welcome to Advanced Blackjack!<br>
-                        Features: Split pairs, Double down, Insurance<br>
+                        Features: Split pairs, Double down<br>
                         Place your bet to start playing!
                     </div>
                 </div>
