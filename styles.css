@@ -507,7 +507,7 @@ body {
     align-items: center;
     margin-bottom: 1.5rem;
 }
-
+4
 .game-header h3 {
     font-size: 1.5rem;
     color: var(--granite-dark);
@@ -946,25 +946,26 @@ body {
 }
 
 .card {
-    width: 50px;
-    height: 70px;
+    width: 60px;
+    height: 84px;
     background: white;
     border: 2px solid #333;
-    border-radius: 6px;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 3px;
+    padding: 4px;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 14px;
     position: relative;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     transition: transform 0.2s ease;
 }
 
 .card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
 }
 
 .card.red {
@@ -976,19 +977,20 @@ body {
 }
 
 .card-back {
-    background: var(--turquoise-dark);
+    background: linear-gradient(135deg, var(--turquoise-dark), var(--turquoise-medium));
     color: var(--white);
     font-size: 24px;
     justify-content: center;
+    box-shadow: 0 4px 12px rgba(26, 122, 122, 0.4);
 }
 
 .card-rank {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
 }
 
 .card-suit {
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .hand-value {
