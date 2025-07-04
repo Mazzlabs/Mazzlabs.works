@@ -204,15 +204,19 @@ class Portfolio {
     }
 }
 
-// Blackjack Game Class
+// Advanced Blackjack Game Class
 class BlackjackGame {
     constructor() {
         this.deck = [];
-        this.playerHand = [];
+        this.playerHands = [[]]; // Array of hands to support splitting
         this.dealerHand = [];
         this.balance = 1000;
-        this.bet = 0;
+        this.bets = [0]; // Array of bets for each hand
         this.gameState = 'betting'; // betting, playing, dealer, finished
+        this.currentHandIndex = 0;
+        this.canSplit = false;
+        this.canDoubleDown = false;
+        this.handResults = [];
         this.container = null;
     }
 
@@ -227,35 +231,83 @@ class BlackjackGame {
         this.container.innerHTML = `
             <div class="game-container">
                 <div class="game-header">
-                    <h3>🃏 Blackjack</h3>
+                    <h3>🃏 Advanced Blackjack</h3>
                     <div class="balance">Balance: $<span id="balance">${this.balance}</span></div>
                 </div>
                 <div class="game-output" id="gameOutput">
-                    Welcome to Blackjack! Get as close to 21 as possible without going over.
-                    Face cards = 10, Aces = 1 or 11
-                    
-                    Place your bet to start playing!
+                    <div class="dealer-section">
+                        <h4>🎴 Dealer's Hand</h4>
+                        <div id="dealerHand" class="hand-display"></div>
+                        <div id="dealerValue" class="hand-value"></div>
+                    </div>
+                    <div class="player-section">
+                        <h4>🎯 Your Hand(s)</h4>
+                        <div id="playerHands" class="hands-container"></div>
+                    </div>
+                    <div id="gameMessage" class="game-message">
+                        Welcome to Advanced Blackjack!<br>
+                        Features: Split pairs, Double down, Insurance<br>
+                        Place your bet to start playing!
+                    </div>
                 </div>
-                <div class="game-controls">
-                    <input type="number" id="betInput" class="game-input" placeholder="Enter bet amount" min="1" max="${this.balance}">
-                    <button id="placeBet" class="game-btn">Place Bet</button>
-                    <button id="hit" class="game-btn" disabled>Hit</button>
-                    <button id="stand" class="game-btn" disabled>Stand</button>
-                    <button id="newGame" class="game-btn">New Game</button>
+                <div class="betting-controls" id="bettingControls">
+                    <div class="bet-display">Current Bet: $<span id="currentBet">0</span></div>
+                    <div class="bet-buttons">
+                        <button id="doubleBet" class="bet-btn">×2</button>
+                        <button id="halveBet" class="bet-btn">÷2</button>
+                        <button id="maxBet" class="bet-btn">Max</button>
+                        <button id="minBet" class="bet-btn">Min</button>
+                    </div>
+                    <button id="placeBet" class="game-btn primary">Deal Cards</button>
+                </div>
+                <div class="game-controls" id="gameControls" style="display: none;">
+                    <button id="hit" class="game-btn">Hit</button>
+                    <button id="stand" class="game-btn">Stand</button>
+                    <button id="split" class="game-btn" disabled>Split</button>
+                    <button id="doubleDown" class="game-btn" disabled>Double Down</button>
+                    <button id="newGame" class="game-btn secondary">New Game</button>
                 </div>
             </div>
         `;
     }
 
     attachEventListeners() {
+        // Betting controls
+        document.getElementById('doubleBet').addEventListener('click', () => this.adjustBet('double'));
+        document.getElementById('halveBet').addEventListener('click', () => this.adjustBet('halve'));
+        document.getElementById('maxBet').addEventListener('click', () => this.adjustBet('max'));
+        document.getElementById('minBet').addEventListener('click', () => this.adjustBet('min'));
         document.getElementById('placeBet').addEventListener('click', () => this.placeBet());
+        
+        // Game controls
         document.getElementById('hit').addEventListener('click', () => this.hit());
         document.getElementById('stand').addEventListener('click', () => this.stand());
+        document.getElementById('split').addEventListener('click', () => this.split());
+        document.getElementById('doubleDown').addEventListener('click', () => this.doubleDown());
         document.getElementById('newGame').addEventListener('click', () => this.resetGame());
+    }
+
+    adjustBet(action) {
+        const currentBet = this.bets[0] || 10;
+        let newBet = currentBet;
         
-        document.getElementById('betInput').addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') this.placeBet();
-        });
+        switch(action) {
+            case 'double':
+                newBet = Math.min(currentBet * 2, this.balance);
+                break;
+            case 'halve':
+                newBet = Math.max(Math.floor(currentBet / 2), 10);
+                break;
+            case 'max':
+                newBet = this.balance;
+                break;
+            case 'min':
+                newBet = 10;
+                break;
+        }
+        
+        this.bets[0] = newBet;
+        document.getElementById('currentBet').textContent = newBet;
     }
 
     createDeck() {
@@ -263,9 +315,12 @@ class BlackjackGame {
         const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
         this.deck = [];
         
-        for (const suit of suits) {
-            for (const rank of ranks) {
-                this.deck.push({ suit, rank });
+        // Create multiple decks for more realistic casino experience
+        for (let deckCount = 0; deckCount < 6; deckCount++) {
+            for (const suit of suits) {
+                for (const rank of ranks) {
+                    this.deck.push({ suit, rank });
+                }
             }
         }
         
@@ -300,91 +355,222 @@ class BlackjackGame {
         return value;
     }
 
+    displayCard(card, hidden = false) {
+        if (hidden) {
+            return '<div class="card card-back">🂠</div>';
+        }
+        
+        const isRed = ['♥', '♦'].includes(card.suit);
+        const colorClass = isRed ? 'red' : 'black';
+        
+        return `<div class="card ${colorClass}">
+                    <span class="card-rank">${card.rank}</span>
+                    <span class="card-suit">${card.suit}</span>
+                </div>`;
+    }
+
     displayHand(hand, hideFirst = false) {
         return hand.map((card, index) => {
-            if (hideFirst && index === 0) return '[Hidden]';
-            return `${card.rank}${card.suit}`;
-        }).join(' | ');
+            if (hideFirst && index === 0) return this.displayCard(card, true);
+            return this.displayCard(card);
+        }).join('');
     }
 
     updateDisplay() {
-        const output = document.getElementById('gameOutput');
-        const balance = document.getElementById('balance');
+        // Update balance
+        document.getElementById('balance').textContent = this.balance;
         
-        balance.textContent = this.balance;
+        // Update dealer hand
+        const dealerHand = document.getElementById('dealerHand');
+        const dealerValue = document.getElementById('dealerValue');
         
-        let display = '';
+        dealerHand.innerHTML = this.displayHand(this.dealerHand, this.gameState === 'playing');
         
-        if (this.gameState === 'betting') {
-            display = `Welcome to Blackjack! Get as close to 21 as possible without going over.
-Face cards = 10, Aces = 1 or 11
-
-Place your bet to start playing!`;
+        if (this.gameState !== 'playing') {
+            dealerValue.textContent = `Value: ${this.getHandValue(this.dealerHand)}`;
         } else {
-            display = `Current Bet: $${this.bet}
-
-🎴 YOUR HAND:
-   ${this.displayHand(this.playerHand)} = ${this.getHandValue(this.playerHand)}
-
-🎴 DEALER'S HAND:
-   ${this.displayHand(this.dealerHand, this.gameState === 'playing')}${this.gameState !== 'playing' ? ` = ${this.getHandValue(this.dealerHand)}` : ''}
-
-`;
-            
-            if (this.gameState === 'finished') {
-                display += this.getGameResult();
-            }
+            dealerValue.textContent = 'Value: ?';
         }
         
-        output.textContent = display;
+        // Update player hands
+        const playerHandsContainer = document.getElementById('playerHands');
+        playerHandsContainer.innerHTML = '';
+        
+        this.playerHands.forEach((hand, index) => {
+            const handDiv = document.createElement('div');
+            handDiv.className = `player-hand ${index === this.currentHandIndex ? 'active' : ''}`;
+            handDiv.innerHTML = `
+                <div class="hand-header">
+                    <span>Hand ${index + 1}</span>
+                    <span class="bet-amount">Bet: $${this.bets[index] || 0}</span>
+                </div>
+                <div class="hand-cards">${this.displayHand(hand)}</div>
+                <div class="hand-value">Value: ${this.getHandValue(hand)}</div>
+                ${this.handResults[index] ? `<div class="hand-result">${this.handResults[index]}</div>` : ''}
+            `;
+            playerHandsContainer.appendChild(handDiv);
+        });
+        
+        this.updateGameControls();
+    }
+
+    updateGameControls() {
+        const bettingControls = document.getElementById('bettingControls');
+        const gameControls = document.getElementById('gameControls');
+        
+        if (this.gameState === 'betting') {
+            bettingControls.style.display = 'block';
+            gameControls.style.display = 'none';
+        } else {
+            bettingControls.style.display = 'none';
+            gameControls.style.display = 'block';
+        }
+        
+        // Update game control buttons
+        if (this.gameState === 'playing') {
+            const currentHand = this.playerHands[this.currentHandIndex];
+            const handValue = this.getHandValue(currentHand);
+            
+            // Can split if first two cards have same rank and player has enough money for additional bet
+            this.canSplit = currentHand.length === 2 && 
+                           this.getCardValue(currentHand[0]) === this.getCardValue(currentHand[1]) &&
+                           this.balance >= this.bets[this.currentHandIndex] &&
+                           this.playerHands.length < 4; // Max 4 hands
+            
+            // Can double down if first two cards and player has enough money for additional bet
+            this.canDoubleDown = currentHand.length === 2 && 
+                               this.balance >= this.bets[this.currentHandIndex];
+            
+            document.getElementById('split').disabled = !this.canSplit;
+            document.getElementById('doubleDown').disabled = !this.canDoubleDown;
+            document.getElementById('hit').disabled = handValue > 21; // Only disable if busted
+            document.getElementById('stand').disabled = false;
+        } else {
+            document.getElementById('split').disabled = true;
+            document.getElementById('doubleDown').disabled = true;
+            document.getElementById('hit').disabled = true;
+            document.getElementById('stand').disabled = true;
+        }
     }
 
     placeBet() {
-        const betInput = document.getElementById('betInput');
-        const bet = parseInt(betInput.value);
+        const bet = this.bets[0] || 10;
+        console.log('Placing bet - Current balance:', this.balance, 'Bet amount:', bet);
         
-        if (isNaN(bet) || bet < 1 || bet > this.balance) {
-            this.showMessage('Please enter a valid bet amount!');
+        if (bet < 10 || bet > this.balance) {
+            this.showMessage('Invalid bet amount!');
             return;
         }
         
-        this.bet = bet;
+        // Deduct the initial bet from balance
+        this.balance -= bet;
+        console.log('After placing bet - Balance:', this.balance);
+        
         this.gameState = 'playing';
         this.createDeck();
         this.dealInitialCards();
-        this.updateControls();
         this.updateDisplay();
     }
 
     dealInitialCards() {
-        this.playerHand = [this.deck.pop(), this.deck.pop()];
+        // Deal two cards to player and dealer
+        this.playerHands[0] = [this.deck.pop(), this.deck.pop()];
         this.dealerHand = [this.deck.pop(), this.deck.pop()];
         
         // Check for blackjack
-        if (this.getHandValue(this.playerHand) === 21) {
-            this.gameState = 'finished';
-            this.updateControls();
+        if (this.getHandValue(this.playerHands[0]) === 21) {
+            this.stand(); // Auto-stand on blackjack
         }
     }
 
     hit() {
         if (this.gameState !== 'playing') return;
         
-        this.playerHand.push(this.deck.pop());
+        const currentHand = this.playerHands[this.currentHandIndex];
+        currentHand.push(this.deck.pop());
         
-        if (this.getHandValue(this.playerHand) >= 21) {
-            this.gameState = 'finished';
-            this.updateControls();
+        const handValue = this.getHandValue(currentHand);
+        
+        // Only move to next hand if busted (over 21)
+        if (handValue > 21) {
+            this.nextHand();
         }
+        // If exactly 21, player can still choose to stand
         
         this.updateDisplay();
     }
 
     stand() {
         if (this.gameState !== 'playing') return;
+        this.nextHand();
+    }
+
+    split() {
+        if (!this.canSplit) return;
         
-        this.gameState = 'dealer';
-        this.dealerPlay();
+        const currentHand = this.playerHands[this.currentHandIndex];
+        const splitCard = currentHand.pop();
+        const additionalBet = this.bets[this.currentHandIndex];
+        
+        // Check if player has enough balance for the additional bet
+        if (this.balance < additionalBet) {
+            this.showMessage('Insufficient balance to split!');
+            return;
+        }
+        
+        // Deduct additional bet from balance
+        this.balance -= additionalBet;
+        
+        // Create new hand with the split card
+        this.playerHands.push([splitCard]);
+        this.bets.push(additionalBet);
+        
+        // Deal new cards to both hands
+        currentHand.push(this.deck.pop());
+        this.playerHands[this.playerHands.length - 1].push(this.deck.pop());
+        
+        this.updateDisplay();
+    }
+
+    doubleDown() {
+        if (!this.canDoubleDown) {
+            console.log('Cannot double down - canDoubleDown:', this.canDoubleDown);
+            return;
+        }
+        
+        const additionalBet = this.bets[this.currentHandIndex];
+        console.log('Double down - Current balance:', this.balance, 'Additional bet:', additionalBet);
+        
+        // Check if player has enough balance for the additional bet
+        if (this.balance < additionalBet) {
+            this.showMessage('Insufficient balance to double down!');
+            console.log('Insufficient balance for double down');
+            return;
+        }
+        
+        // Deduct additional bet from balance and double the bet
+        this.balance -= additionalBet;
+        this.bets[this.currentHandIndex] *= 2;
+        console.log('After double down - Balance:', this.balance, 'New bet:', this.bets[this.currentHandIndex]);
+        
+        // Hit once and automatically stand
+        this.hit();
+        if (this.gameState === 'playing') {
+            this.stand();
+        }
+    }
+
+    nextHand() {
+        this.currentHandIndex++;
+        
+        if (this.currentHandIndex >= this.playerHands.length) {
+            // All hands played, now dealer plays
+            this.gameState = 'dealer';
+            this.dealerPlay();
+        } else {
+            // Move to next hand
+            this.updateDisplay();
+        }
     }
 
     dealerPlay() {
@@ -398,78 +584,72 @@ Place your bet to start playing!`;
             }, 1000);
         } else {
             this.gameState = 'finished';
-            this.updateControls();
+            this.calculateResults();
             this.updateDisplay();
         }
     }
 
-    getGameResult() {
-        const playerValue = this.getHandValue(this.playerHand);
+    calculateResults() {
         const dealerValue = this.getHandValue(this.dealerHand);
+        const dealerBusted = dealerValue > 21;
+        const dealerBlackjack = dealerValue === 21 && this.dealerHand.length === 2;
         
-        let result = '';
+        this.handResults = [];
         
-        if (playerValue > 21) {
-            result = '💥 BUST! You went over 21!';
-            this.balance -= this.bet;
-        } else if (dealerValue > 21) {
-            result = '🎉 Dealer busted! You win!';
-            this.balance += this.bet;
-        } else if (playerValue === 21 && this.playerHand.length === 2 && dealerValue !== 21) {
-            result = '🎉 BLACKJACK! You win!';
-            this.balance += Math.floor(this.bet * 1.5);
-        } else if (dealerValue === 21 && this.dealerHand.length === 2 && playerValue !== 21) {
-            result = '😞 Dealer has blackjack! You lose!';
-            this.balance -= this.bet;
-        } else if (playerValue > dealerValue) {
-            result = '🎉 You win!';
-            this.balance += this.bet;
-        } else if (dealerValue > playerValue) {
-            result = '😞 Dealer wins!';
-            this.balance -= this.bet;
-        } else {
-            result = '🤝 It\'s a tie!';
-        }
+        this.playerHands.forEach((hand, index) => {
+            const playerValue = this.getHandValue(hand);
+            const playerBusted = playerValue > 21;
+            const playerBlackjack = playerValue === 21 && hand.length === 2;
+            const bet = this.bets[index];
+            
+            let result = '';
+            let winnings = 0;
+            
+            if (playerBusted) {
+                result = '💥 BUST!';
+                winnings = 0; // Already lost the bet
+            } else if (dealerBusted) {
+                result = '🎉 WIN! (Dealer Bust)';
+                winnings = bet * 2; // Get bet back + winnings
+            } else if (playerBlackjack && !dealerBlackjack) {
+                result = '🎉 BLACKJACK!';
+                winnings = bet + Math.floor(bet * 1.5); // Get bet back + 1.5x winnings
+            } else if (dealerBlackjack && !playerBlackjack) {
+                result = '😞 LOSE (Dealer Blackjack)';
+                winnings = 0; // Already lost the bet
+            } else if (playerValue > dealerValue) {
+                result = '🎉 WIN!';
+                winnings = bet * 2; // Get bet back + winnings
+            } else if (dealerValue > playerValue) {
+                result = '😞 LOSE';
+                winnings = 0; // Already lost the bet
+            } else {
+                result = '🤝 PUSH';
+                winnings = bet; // Get bet back
+            }
+            
+            const netWinnings = winnings - bet; // Net gain/loss for display
+            this.handResults.push(`${result} ${netWinnings > 0 ? '+' : netWinnings < 0 ? '' : ''}$${Math.abs(netWinnings)}`);
+            this.balance += winnings;
+        });
         
-        return result + `\n\nNew Balance: $${this.balance}`;
-    }
-
-    updateControls() {
-        const placeBetBtn = document.getElementById('placeBet');
-        const hitBtn = document.getElementById('hit');
-        const standBtn = document.getElementById('stand');
-        const betInput = document.getElementById('betInput');
-        
-        if (this.gameState === 'betting') {
-            placeBetBtn.disabled = false;
-            hitBtn.disabled = true;
-            standBtn.disabled = true;
-            betInput.disabled = false;
-        } else if (this.gameState === 'playing') {
-            placeBetBtn.disabled = true;
-            hitBtn.disabled = false;
-            standBtn.disabled = false;
-            betInput.disabled = true;
-        } else {
-            placeBetBtn.disabled = true;
-            hitBtn.disabled = true;
-            standBtn.disabled = true;
-            betInput.disabled = true;
-        }
+        this.showMessage(`Game Over! New Balance: $${this.balance}`);
     }
 
     resetGame() {
         this.gameState = 'betting';
-        this.playerHand = [];
+        this.playerHands = [[]];
         this.dealerHand = [];
-        this.bet = 0;
-        this.updateControls();
+        this.bets = [10];
+        this.currentHandIndex = 0;
+        this.handResults = [];
+        document.getElementById('currentBet').textContent = '10';
         this.updateDisplay();
+        this.showMessage('Welcome to Advanced Blackjack!<br>Features: Split pairs, Double down<br>Place your bet to start playing!');
     }
 
     showMessage(message) {
-        const output = document.getElementById('gameOutput');
-        output.textContent = message;
+        document.getElementById('gameMessage').innerHTML = message;
     }
 }
 
