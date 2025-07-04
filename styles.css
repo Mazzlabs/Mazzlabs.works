@@ -304,7 +304,7 @@ body {
     margin-bottom: 1rem;
 }
 
-.avatar {
+.avatar-image {
     width: 200px;
     height: 200px;
     border-radius: 50%;
@@ -314,10 +314,12 @@ body {
     transition: var(--transition);
 }
 
-.avatar:hover {
+.avatar-image:hover {
     transform: scale(1.05);
     box-shadow: 0 12px 30px rgba(32, 160, 160, 0.3);
 }
+
+/* Avatar placeholder styles removed - now using SVG avatar */
 
 .about-text p {
     margin-bottom: 1.5rem;
