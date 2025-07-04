@@ -71,7 +71,8 @@
             <div class="about-content">
                 <div class="about-profile">
                     <div class="profile-image">
-                        <img src="assets/joseph-avatar.svg" alt="Joseph Mazzini" class="avatar-image">
+                        <img src="/assets/joseph-avatar.svg" alt="Joseph Mazzini" class="avatar-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="avatar-fallback" style="display: none;">JM</div>
                     </div>
                     <div class="about-text">
                         <p>I'm a Computer Science student at Rogue Community College, working toward transferring to Oregon State University. My journey combines hands-on IT infrastructure management with a passion for software development and machine learning.</p>
@@ -214,7 +215,7 @@
                         <i class="fas fa-spade-suit game-icon"></i>
                     </div>
                     <p class="game-description">A fully featured Blackjack game with proper odds, betting system, and dealer AI. Features dynamic ace handling and realistic casino rules.</p>
-                    <button class="play-btn" onclick="openGame('blackjack')">
+                    <button class="play-btn" data-game="blackjack">
                         <i class="fas fa-play"></i>
                         Play Blackjack
                     </button>
@@ -225,7 +226,7 @@
                         <i class="fas fa-hand-rock game-icon"></i>
                     </div>
                     <p class="game-description">An intelligent Rock-Paper-Scissors game where the computer learns from your patterns and adapts its strategy accordingly.</p>
-                    <button class="play-btn" onclick="openGame('roshambo')">
+                    <button class="play-btn" data-game="roshambo">
                         <i class="fas fa-play"></i>
                         Play Ro-Sham-Bo
                     </button>
@@ -317,7 +318,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 id="gameTitle"></h3>
-                <button class="close-btn" onclick="closeGame()">
+                <button class="close-btn" id="closeGameBtn">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
