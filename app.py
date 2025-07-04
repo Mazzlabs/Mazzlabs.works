@@ -188,6 +188,20 @@ def get_stats():
         'last_updated': datetime.now().isoformat()
     })
 
+@app.route('/assets/<path:filename>')
+def serve_assets(filename):
+    """Serve static assets like images"""
+    try:
+        # For now, create a placeholder avatar response
+        if filename == 'joseph-avatar.jpg':
+            # Return the actual image file when it exists
+            # For now, redirect to a placeholder or return a default
+            return send_file('assets/joseph-avatar.jpg') if os.path.exists('assets/joseph-avatar.jpg') else ('', 404)
+        return ('', 404)
+    except Exception as e:
+        logger.error(f"Error serving asset {filename}: {str(e)}")
+        return ('', 404)
+
 def send_contact_email(name, email, message):
     """Send contact form email notification"""
     try:
