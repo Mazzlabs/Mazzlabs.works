@@ -377,7 +377,7 @@ class BlackjackGame {
     }
 
     updateDisplay() {
-        // Update balance
+        // Update balance display
         document.getElementById('balance').textContent = this.balance;
         
         // Update dealer hand
@@ -455,7 +455,6 @@ class BlackjackGame {
 
     placeBet() {
         const bet = this.bets[0] || 10;
-        console.log('Placing bet - Current balance:', this.balance, 'Bet amount:', bet);
         
         if (bet < 10 || bet > this.balance) {
             this.showMessage('Invalid bet amount!');
@@ -464,7 +463,6 @@ class BlackjackGame {
         
         // Deduct the initial bet from balance
         this.balance -= bet;
-        console.log('After placing bet - Balance:', this.balance);
         
         this.gameState = 'playing';
         this.createDeck();
@@ -533,25 +531,19 @@ class BlackjackGame {
     }
 
     doubleDown() {
-        if (!this.canDoubleDown) {
-            console.log('Cannot double down - canDoubleDown:', this.canDoubleDown);
-            return;
-        }
+        if (!this.canDoubleDown) return;
         
         const additionalBet = this.bets[this.currentHandIndex];
-        console.log('Double down - Current balance:', this.balance, 'Additional bet:', additionalBet);
         
         // Check if player has enough balance for the additional bet
         if (this.balance < additionalBet) {
             this.showMessage('Insufficient balance to double down!');
-            console.log('Insufficient balance for double down');
             return;
         }
         
         // Deduct additional bet from balance and double the bet
         this.balance -= additionalBet;
         this.bets[this.currentHandIndex] *= 2;
-        console.log('After double down - Balance:', this.balance, 'New bet:', this.bets[this.currentHandIndex]);
         
         // Hit once and automatically stand
         this.hit();
@@ -634,6 +626,15 @@ class BlackjackGame {
         });
         
         this.showMessage(`Game Over! New Balance: $${this.balance}`);
+        
+        // Check if player is out of money
+        if (this.balance < 10) {
+            this.showMessage(`Game Over! You're out of money! Refreshing with $1000...`);
+            setTimeout(() => {
+                this.balance = 1000;
+                this.resetGame();
+            }, 2000);
+        }
     }
 
     resetGame() {
