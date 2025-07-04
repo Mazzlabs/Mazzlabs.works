@@ -344,7 +344,31 @@ body {
     z-index: -1;
 }
 
-/* Avatar placeholder styles removed - now using SVG avatar */
+/* Avatar fallback for failed loads */
+.avatar-fallback {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--turquoise-dark), var(--turquoise-medium));
+    border: 4px solid var(--turquoise-medium);
+    box-shadow: var(--shadow-hover);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.avatar-fallback:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(32, 160, 160, 0.3);
+}
+
+.avatar-initials {
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--white);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
 
 .about-text p {
     margin-bottom: 1.5rem;
