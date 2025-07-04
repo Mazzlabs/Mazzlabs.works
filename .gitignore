@@ -35,6 +35,9 @@ instance/
 
 # Environment variables
 .env
+.env.local
+.env.production
+.env.development
 .venv
 env/
 ENV/
