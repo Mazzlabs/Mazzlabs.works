@@ -1,0 +1,101 @@
+/* Custom CSS Variables for Brand Colors */
+:root {
+  --granite-dark: #2c2c2c;
+  --granite-medium: #4a4a4a;
+  --granite-light: #6a6a6a;
+  --granite-lighter: #8a8a8a;
+  --turquoise-dark: #1a7a7a;
+  --turquoise-medium: #20a0a0;
+  --turquoise-light: #40c0c0;
+  --turquoise-lighter: #60d0d0;
+  --turquoise-rgb: 32, 160, 160;
+  --white: #ffffff;
+  --light-gray: #f5f5f5;
+  --border-radius: 8px;
+  --transition: all 0.3s ease;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Custom Utility Classes for Brand Colors */
+.text-turquoise-dark { color: var(--turquoise-dark); }
+.text-turquoise-medium { color: var(--turquoise-medium); }
+.text-turquoise-light { color: var(--turquoise-light); }
+.bg-turquoise-dark { background-color: var(--turquoise-dark); }
+.bg-turquoise-medium { background-color: var(--turquoise-medium); }
+.bg-turquoise-light { background-color: var(--turquoise-light); }
+.bg-granite-dark { background-color: var(--granite-dark); }
+.bg-granite-medium { background-color: var(--granite-medium); }
+.bg-granite-light { background-color: var(--granite-light); }
+.border-turquoise-medium { border-color: var(--turquoise-medium); }
+
+/* Custom Gradient Classes */
+.bg-gradient-turquoise { background: linear-gradient(135deg, var(--turquoise-dark), var(--turquoise-medium)); }
+.bg-gradient-granite { background: linear-gradient(135deg, var(--granite-dark), var(--granite-medium)); }
+
+/* Custom Button Components */
+.btn-turquoise {
+  background: linear-gradient(135deg, var(--turquoise-dark), var(--turquoise-medium));
+  transition: var(--transition);
+}
+
+.btn-turquoise:hover {
+  background: linear-gradient(135deg, var(--turquoise-medium), var(--turquoise-light));
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.btn-granite {
+  background: linear-gradient(135deg, var(--granite-dark), var(--granite-medium));
+  transition: var(--transition);
+}
+
+.btn-granite:hover {
+  background: linear-gradient(135deg, var(--granite-medium), var(--granite-light));
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Hero Section Custom Styles */
+.hero-shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(var(--turquoise-rgb), 0.1) 50%, transparent 70%);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+}
+
+.hero-text-gradient {
+  background: linear-gradient(135deg, var(--turquoise-light), var(--turquoise-lighter));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Loading Animation */
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--turquoise-light);
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
