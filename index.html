@@ -84,16 +84,34 @@
                             
                             <!-- Terminal Content -->
                             <div class="terminal-content p-4 h-48 overflow-hidden">
-                                <div class="text-turquoise-light font-mono text-sm">
-                                    <div class="typing-animation">
-                                        <div class="line"><span class="text-purple-400">const</span> <span class="text-blue-400">developer</span> = {</div>
-                                        <div class="line ml-4"><span class="text-orange-400">name</span>: <span class="text-green-400">'Joseph Mazzini'</span>,</div>
-                                        <div class="line ml-4"><span class="text-orange-400">skills</span>: [<span class="text-green-400">'React'</span>, <span class="text-green-400">'Python'</span>, <span class="text-green-400">'Node.js'</span>],</div>
-                                        <div class="line ml-4"><span class="text-orange-400">passion</span>: <span class="text-green-400">'Building the future'</span></div>
-                                        <div class="line">};</div>
-                                        <div class="line mt-2"><span class="text-purple-400">console</span>.<span class="text-blue-400">log</span>(<span class="text-green-400">'Ready to create!'</span>);</div>
+                                <div class="text-turquoise-light font-mono text-sm leading-relaxed">
+                                    <div class="opacity-0 animate-fadeIn" style="animation-delay: 0.5s">
+                                        <span class="text-purple-400">async function</span> <span class="text-blue-400">optimizeUserExperience</span>() {
                                     </div>
-                                    <div class="cursor-blink">|</div>
+                                    <div class="opacity-0 animate-fadeIn ml-2" style="animation-delay: 1s">
+                                        <span class="text-purple-400">const</span> <span class="text-blue-400">data</span> = <span class="text-purple-400">await</span> <span class="text-blue-400">fetch</span>(<span class="text-green-400">'/api/analytics'</span>);
+                                    </div>
+                                    <div class="opacity-0 animate-fadeIn ml-2" style="animation-delay: 1.5s">
+                                        <span class="text-purple-400">const</span> <span class="text-blue-400">insights</span> = <span class="text-blue-400">processMetrics</span>(data);
+                                    </div>
+                                    <div class="opacity-0 animate-fadeIn ml-2" style="animation-delay: 2s">
+                                        <span class="text-purple-400">return</span> insights.<span class="text-blue-400">reduce</span>((acc, metric) => {
+                                    </div>
+                                    <div class="opacity-0 animate-fadeIn ml-4" style="animation-delay: 2.5s">
+                                        acc[metric.key] = metric.value > threshold
+                                    </div>
+                                    <div class="opacity-0 animate-fadeIn ml-6" style="animation-delay: 3s">
+                                        ? <span class="text-blue-400">enhance</span>(metric) : metric;
+                                    </div>
+                                    <div class="opacity-0 animate-fadeIn ml-4" style="animation-delay: 3.5s">
+                                        <span class="text-purple-400">return</span> acc;
+                                    </div>
+                                    <div class="opacity-0 animate-fadeIn ml-2" style="animation-delay: 4s">
+                                        }, {});
+                                    </div>
+                                    <div class="opacity-0 animate-fadeIn" style="animation-delay: 4.5s">
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
