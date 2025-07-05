@@ -56,7 +56,7 @@
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div>
-                    <h2 class="text-5xl font-bold mb-6">Computer Science Student</h2>
+                    <h2 class="text-5xl font-bold mb-6">Computer Science Student<br><span class="text-turquoise-light">& Aspiring Software Developer</span></h2>
                     <p class="text-xl mb-8 text-gray-300">Building elegant solutions with modern technology</p>
                     <div class="flex space-x-4">
                         <a href="#projects" class="btn-primary">View Projects</a>
@@ -64,13 +64,39 @@
                     </div>
                 </div>
                 <div class="flex justify-center">
-                    <div class="w-80 h-60 bg-black bg-opacity-20 rounded-lg p-6 backdrop-blur-sm">
-                        <div class="code-animation">
-                            <div class="h-4 bg-turquoise-medium rounded mb-3 animate-pulse"></div>
-                            <div class="h-4 bg-turquoise-light rounded mb-3 animate-pulse" style="animation-delay: 0.5s"></div>
-                            <div class="h-4 bg-turquoise-medium rounded mb-3 animate-pulse" style="animation-delay: 1s"></div>
-                            <div class="h-4 bg-turquoise-light rounded animate-pulse" style="animation-delay: 1.5s"></div>
+                    <div class="hero-animation-container relative w-80 h-60">
+                        <!-- Terminal Window -->
+                        <div class="terminal-window bg-granite-dark rounded-lg shadow-2xl p-1 transform hover:scale-105 transition-transform duration-300">
+                            <!-- Window Header -->
+                            <div class="terminal-header bg-granite-medium rounded-t-lg px-4 py-2 flex items-center">
+                                <div class="flex space-x-2">
+                                    <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                                    <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                                    <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                                </div>
+                                <div class="flex-1 text-center text-sm text-gray-300">portfolio.js</div>
+                            </div>
+                            
+                            <!-- Terminal Content -->
+                            <div class="terminal-content p-4 h-48 overflow-hidden">
+                                <div class="text-turquoise-light font-mono text-sm">
+                                    <div class="typing-animation">
+                                        <div class="line"><span class="text-purple-400">const</span> <span class="text-blue-400">developer</span> = {</div>
+                                        <div class="line ml-4"><span class="text-orange-400">name</span>: <span class="text-green-400">'Joseph Mazzini'</span>,</div>
+                                        <div class="line ml-4"><span class="text-orange-400">skills</span>: [<span class="text-green-400">'React'</span>, <span class="text-green-400">'Python'</span>, <span class="text-green-400">'Node.js'</span>],</div>
+                                        <div class="line ml-4"><span class="text-orange-400">passion</span>: <span class="text-green-400">'Building the future'</span></div>
+                                        <div class="line">};</div>
+                                        <div class="line mt-2"><span class="text-purple-400">console</span>.<span class="text-blue-400">log</span>(<span class="text-green-400">'Ready to create!'</span>);</div>
+                                    </div>
+                                    <div class="cursor-blink">|</div>
+                                </div>
+                            </div>
                         </div>
+                        
+                        <!-- Floating Elements -->
+                        <div class="floating-element floating-element-1 absolute top-4 -right-8 w-6 h-6 bg-turquoise-medium rounded opacity-70"></div>
+                        <div class="floating-element floating-element-2 absolute bottom-8 -left-6 w-4 h-4 bg-purple-400 rounded-full opacity-60"></div>
+                        <div class="floating-element floating-element-3 absolute top-12 -left-4 w-3 h-3 bg-yellow-400 rounded opacity-50"></div>
                     </div>
                 </div>
             </div>

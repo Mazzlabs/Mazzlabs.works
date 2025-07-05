@@ -1,0 +1,6 @@
+/* Import separate CSS files */
+@import url('./css/main.css');
+@import url('./css/games.css');
+@import url('./css/modals.css');
+
+/* Minimal custom styles - let Tailwind handle the rest */
