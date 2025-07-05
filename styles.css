@@ -3,10 +3,19 @@
   --granite-dark: #2c2c2c;
   --granite-medium: #4a4a4a;
   --granite-light: #6a6a6a;
+  --granite-lighter: #8a8a8a;
   --turquoise-dark: #1a7a7a;
   --turquoise-medium: #20a0a0;
   --turquoise-light: #40c0c0;
+  --turquoise-lighter: #60d0d0;
   --turquoise-rgb: 32, 160, 160;
+  --white: #ffffff;
+  --light-gray: #f5f5f5;
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --border-radius: 8px;
+  --transition: all 0.3s ease;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.2);
 }
 
 /* Custom Tailwind Extensions - Using CDN so no need for @tailwind directives */
@@ -16,31 +25,95 @@
 
 /* Custom Component Classes */
 .btn-primary {
-  @apply bg-gradient-to-r from-turquoise-dark to-turquoise-medium text-white px-6 py-3 rounded-lg font-semibold transition-all hover:from-turquoise-medium hover:to-turquoise-light hover:-translate-y-1 hover:shadow-lg;
+  background: linear-gradient(135deg, var(--turquoise-dark), var(--turquoise-medium));
+  color: var(--white);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  transition: var(--transition);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--turquoise-medium), var(--turquoise-light));
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
 }
 
 .btn-secondary {
-  @apply bg-gradient-to-r from-granite-dark to-granite-medium text-white px-6 py-3 rounded-lg font-semibold transition-all hover:from-granite-medium hover:to-granite-light hover:-translate-y-1 hover:shadow-lg;
+  background: linear-gradient(135deg, var(--granite-dark), var(--granite-medium));
+  color: var(--white);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  transition: var(--transition);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, var(--granite-medium), var(--granite-light));
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
 }
 
 .card-deck {
-  @apply w-16 h-20 bg-white rounded-lg shadow-lg border-2 border-gray-300 flex flex-col items-center justify-between p-2 font-bold transition-transform hover:-translate-y-1;
+  width: 4rem;
+  height: 5rem;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  border: 2px solid var(--light-gray);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  font-weight: bold;
+  transition: var(--transition);
 }
 
-.card-red { @apply text-red-600; }
-.card-black { @apply text-gray-800; }
-.card-back { @apply bg-gradient-to-br from-turquoise-dark to-turquoise-medium text-white justify-center; }
+.card-deck:hover {
+  transform: translateY(-2px);
+}
+
+.card-red { color: #dc2626; }
+.card-black { color: #1f2937; }
+.card-back { 
+  background: linear-gradient(135deg, var(--turquoise-dark), var(--turquoise-medium));
+  color: var(--white);
+  justify-content: center;
+}
 
 .game-table {
-  @apply bg-gradient-to-br from-green-800 to-green-600 rounded-xl p-6 shadow-2xl text-white min-h-[500px];
+  background: linear-gradient(135deg, #166534, #15803d);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  color: var(--white);
+  min-height: 500px;
 }
 
 .hand-container {
-  @apply bg-black bg-opacity-20 rounded-lg p-4 border-2 border-transparent transition-all;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  border: 2px solid transparent;
+  transition: var(--transition);
 }
 
 .hand-active {
-  @apply border-turquoise-medium shadow-lg shadow-turquoise-medium/30;
+  border-color: var(--turquoise-medium);
+  box-shadow: 0 10px 25px rgba(32, 160, 160, 0.3);
 }
 
 /* Utility Classes */
@@ -70,9 +143,6 @@
 }
 
 .win-pulse { animation: pulse-green 1s ease-out; }
-    font-weight: 700;
-    color: var(--turquoise-light);
-}
 
 .nav-subtitle {
     font-size: 0.9rem;
@@ -1465,11 +1535,6 @@ html {
 .text-left { text-align: left; }
 .text-right { text-align: right; }
 .mb-1 { margin-bottom: 1rem; }
-.mb-2 { margin-bottom: 2rem; }
-.mt-1 { margin-top: 1rem; }
-.mt-2 { margin-top: 2rem; }
-.hidden { display: none; }
-.visible { display: block; }
 .mb-2 { margin-bottom: 2rem; }
 .mt-1 { margin-top: 1rem; }
 .mt-2 { margin-top: 2rem; }
