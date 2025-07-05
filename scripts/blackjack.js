@@ -88,21 +88,10 @@ function createCardElement(card, isHidden = false) {
     } else {
         const isRed = ['♥', '♦'].includes(card.suit);
         cardDiv.className += isRed ? ' card-red' : ' card-black';
-        
-        // Create rank element
-        const rankDiv = document.createElement('div');
-        rankDiv.className = 'card-rank';
-        rankDiv.textContent = card.rank;
-        
-        // Create suit element
-        const suitDiv = document.createElement('div');
-        suitDiv.className = 'card-suit';
-        suitDiv.textContent = card.suit;
-        
-        // Clear and append elements
-        cardDiv.innerHTML = '';
-        cardDiv.appendChild(rankDiv);
-        cardDiv.appendChild(suitDiv);
+        cardDiv.innerHTML = `
+            <div class="text-lg font-bold">${card.rank}</div>
+            <div class="text-2xl">${card.suit}</div>
+        `;
     }
     
     return cardDiv;
@@ -221,17 +210,12 @@ function updatePlayerOptions() {
     document.getElementById('hit-button').disabled = false;
     document.getElementById('stand-button').disabled = false;
 
-    // Condition for Double Down:
-    // 1. It's the first move for this hand (2 cards).
-    // 2. Player has enough money to double the bet.
+    // Double Down: first move (2 cards) + enough money
     const canDoubleDown = currentHand.cards.length === 2 && 
                          gameState.playerBalance >= currentBet;
     document.getElementById('doubledown-button').disabled = !canDoubleDown;
 
-    // Condition for Split:
-    // 1. It's the first move for this hand (2 cards).
-    // 2. Both cards have the same rank (e.g., two '8's or a 'K' and a 'Q').
-    // 3. Player has enough money for a second bet.
+    // Split: first move (2 cards) + same rank + enough money
     const canSplit = currentHand.cards.length === 2 &&
                     currentHand.cards[0].rank === currentHand.cards[1].rank &&
                     gameState.playerBalance >= currentBet;
@@ -276,19 +260,19 @@ function handleStand() {
 }
 
 function handleDoubleDown() {
-    const bet = gameState.bets[gameState.activeHandIndex];
+    const currentBet = gameState.bets[gameState.activeHandIndex];
 
-    // 1. Update balance and bet
-    gameState.playerBalance -= bet;
-    gameState.bets[gameState.activeHandIndex] += bet;
+    // Update balance and bet
+    gameState.playerBalance -= currentBet;
+    gameState.bets[gameState.activeHandIndex] += currentBet;
 
-    // 2. Deal one more card
+    // Deal one more card
     const currentHand = gameState.playerHands[gameState.activeHandIndex];
     const newCard = dealCard();
     currentHand.cards.push(newCard);
     calculateHandValue(currentHand);
 
-    // 3. Mark the hand as finished and stand
+    // Mark the hand as finished and stand
     currentHand.isFinished = true;
     updateDisplay();
     
@@ -303,22 +287,22 @@ function handleSplit() {
     const handToSplit = gameState.playerHands[gameState.activeHandIndex];
     const originalBet = gameState.bets[gameState.activeHandIndex];
 
-    // 1. Update balance with the new bet
+    // Update balance with the new bet
     gameState.playerBalance -= originalBet;
 
-    // 2. Create the new hand
+    // Create the new hand
     const newHand = createHand();
     newHand.cards.push(handToSplit.cards.pop()); // Move one card to the new hand
 
-    // 3. Add the new hand and its bet to our game state
+    // Add the new hand and its bet to our game state
     gameState.playerHands.push(newHand);
     gameState.bets.push(originalBet);
 
-    // 4. Deal one new card to EACH hand
+    // Deal one new card to EACH hand
     handToSplit.cards.push(dealCard());
     newHand.cards.push(dealCard());
 
-    // 5. Recalculate values for both hands
+    // Recalculate values for both hands
     calculateHandValue(handToSplit);
     calculateHandValue(newHand);
 
@@ -358,22 +342,21 @@ function processPayouts() {
         let outcomeMessage = '';
 
         if (hand.isBust) {
-            outcomeMessage = `Hand ${index + 1} busted. You lose $${bet}.`;
-            // No change to balance, as bet was already deducted.
+            outcomeMessage = `Hand ${index + 1} busted. Lost $${bet}`;
         } else if (dealerHand.isBust || hand.value > dealerHand.value) {
             // Player wins
-            const winnings = hand.isBlackjack ? bet * 1.5 : bet;
-            gameState.playerBalance += bet + winnings; // Return original bet + winnings
+            const winnings = hand.isBlackjack ? Math.floor(bet * 1.5) : bet;
+            gameState.playerBalance += bet + winnings;
             totalWinnings += winnings;
-            outcomeMessage = `Hand ${index + 1} wins! You get $${winnings}.`;
+            outcomeMessage = `Hand ${index + 1} wins! +$${winnings}`;
             if (hand.isBlackjack) outcomeMessage += ' (Blackjack!)';
         } else if (hand.value < dealerHand.value) {
             // Dealer wins
-            outcomeMessage = `Hand ${index + 1} loses to dealer. You lose $${bet}.`;
+            outcomeMessage = `Hand ${index + 1} loses. Lost $${bet}`;
         } else {
             // Push (tie)
-            gameState.playerBalance += bet; // Return original bet
-            outcomeMessage = `Hand ${index + 1} is a push. Bet returned.`;
+            gameState.playerBalance += bet;
+            outcomeMessage = `Hand ${index + 1} pushes. Bet returned`;
         }
         
         messages.push(outcomeMessage);

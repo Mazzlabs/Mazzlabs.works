@@ -14,35 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Game button event listeners
-    document.querySelectorAll('.play-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const game = this.getAttribute('data-game');
-            if (game === 'blackjack') {
-                openBlackjack();
-            } else if (game === 'roshambo') {
-                openRoshambo();
-            }
-        });
-    });
-
-    // Resume download buttons
-    document.querySelectorAll('.download-resume-btn').forEach(button => {
-        button.addEventListener('click', downloadResume);
-    });
-
-    // Close modal button
-    document.getElementById('closeGameBtn').addEventListener('click', closeGameModal);
-
-    // Close modal on overlay click
-    document.getElementById('gameModal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeGameModal();
-        }
-    });
-
     // Contact form handling
-    const contactForm = document.querySelector('#contactForm');
+    const contactForm = document.querySelector('#contact form');
     if (contactForm) {
         contactForm.addEventListener('submit', handleContactSubmit);
     }
@@ -50,14 +23,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Game modal functions
 function openGameModal(title, content) {
-    document.getElementById('gameTitle').textContent = title;
-    document.getElementById('gameContainer').innerHTML = content;
-    document.getElementById('gameModal').style.display = 'flex';
+    document.getElementById('game-title').textContent = title;
+    document.getElementById('game-content').innerHTML = content;
+    document.getElementById('game-modal').classList.remove('hidden');
+    document.getElementById('game-modal').classList.add('flex');
 }
 
 function closeGameModal() {
-    document.getElementById('gameModal').style.display = 'none';
-    document.getElementById('gameContainer').innerHTML = '';
+    document.getElementById('game-modal').classList.add('hidden');
+    document.getElementById('game-modal').classList.remove('flex');
 }
 
 function openBlackjack() {
@@ -113,61 +87,61 @@ function openBlackjack() {
     initializeBlackjack();
 }
 
-function openRoshambo() {
+function openWordGuess() {
     const roshamboHTML = `
-        <div id="roshambo-game" style="max-width: 600px; margin: 0 auto;">
-            <div style="text-align: center; margin-bottom: 2rem;">
-                <h2 style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem;">Ro-Sham-Bo!</h2>
-                <p style="font-size: 1.1rem; color: var(--turquoise-light); margin-bottom: 1.5rem;">The computer learns from your choices... Can you outsmart it?</p>
+        <div id="roshambo-game" class="max-w-2xl mx-auto">
+            <div class="text-center mb-8">
+                <h2 class="text-4xl font-bold mb-4">Ro-Sham-Bo!</h2>
+                <p class="text-lg text-gray-600 mb-6">The computer learns from your choices... Can you outsmart it?</p>
                 
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
-                    <div style="background: var(--granite-medium); padding: 1rem; border-radius: 8px; color: var(--white);">
-                        <h3 style="font-weight: 600; font-size: 1.1rem;">You</h3>
-                        <div style="font-size: 2rem; font-weight: bold; color: var(--turquoise-light);" id="user-score">0</div>
+                <div class="grid grid-cols-3 gap-4 mb-6">
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <h3 class="font-semibold text-lg">You</h3>
+                        <div class="text-3xl font-bold text-turquoise-medium" id="user-score">0</div>
                     </div>
-                    <div style="background: var(--granite-medium); padding: 1rem; border-radius: 8px; color: var(--white);">
-                        <h3 style="font-weight: 600; font-size: 1.1rem;">Ties</h3>
-                        <div style="font-size: 2rem; font-weight: bold; color: var(--granite-lighter);" id="tie-score">0</div>
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <h3 class="font-semibold text-lg">Ties</h3>
+                        <div class="text-3xl font-bold text-gray-600" id="tie-score">0</div>
                     </div>
-                    <div style="background: var(--granite-medium); padding: 1rem; border-radius: 8px; color: var(--white);">
-                        <h3 style="font-weight: 600; font-size: 1.1rem;">Computer</h3>
-                        <div style="font-size: 2rem; font-weight: bold; color: #d32f2f;" id="computer-score">0</div>
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <h3 class="font-semibold text-lg">Computer</h3>
+                        <div class="text-3xl font-bold text-red-600" id="computer-score">0</div>
                     </div>
                 </div>
             </div>
             
-            <div style="text-align: center; margin-bottom: 2rem;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 1.5rem;">
-                    <div style="text-align: center;">
-                        <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; color: var(--white);">Your Choice</h3>
-                        <div id="user-choice" style="font-size: 4rem; margin-bottom: 1rem;">❓</div>
+            <div class="text-center mb-8">
+                <div class="grid grid-cols-2 gap-8 mb-6">
+                    <div class="text-center">
+                        <h3 class="text-xl font-semibold mb-4">Your Choice</h3>
+                        <div id="user-choice" class="text-8xl mb-4">❓</div>
                     </div>
-                    <div style="text-align: center;">
-                        <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; color: var(--white);">Computer's Choice</h3>
-                        <div id="computer-choice" style="font-size: 4rem; margin-bottom: 1rem;">❓</div>
+                    <div class="text-center">
+                        <h3 class="text-xl font-semibold mb-4">Computer's Choice</h3>
+                        <div id="computer-choice" class="text-8xl mb-4">❓</div>
                     </div>
                 </div>
                 
-                <div id="result-message" style="font-size: 1.3rem; font-weight: bold; margin-bottom: 1.5rem; height: 3rem; display: flex; align-items: center; justify-content: center; color: var(--turquoise-light);"></div>
+                <div id="result-message" class="text-2xl font-bold mb-6 h-16 flex items-center justify-center"></div>
             </div>
             
-            <div style="text-align: center;">
-                <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; color: var(--white);">Make Your Choice</h3>
-                <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem;">
-                    <button onclick="playRound('rock')" style="background: var(--turquoise-medium); color: white; border: none; font-size: 3rem; padding: 1rem; border-radius: 50%; cursor: pointer; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">🪨</button>
-                    <button onclick="playRound('paper')" style="background: var(--turquoise-medium); color: white; border: none; font-size: 3rem; padding: 1rem; border-radius: 50%; cursor: pointer; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">📄</button>
-                    <button onclick="playRound('scissors')" style="background: var(--turquoise-medium); color: white; border: none; font-size: 3rem; padding: 1rem; border-radius: 50%; cursor: pointer; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">✂️</button>
+            <div class="text-center">
+                <h3 class="text-xl font-semibold mb-4">Make Your Choice</h3>
+                <div class="flex justify-center space-x-4 mb-6">
+                    <button onclick="playRound('rock')" class="btn-primary text-6xl p-6 rounded-full hover:scale-110 transition-transform">🪨</button>
+                    <button onclick="playRound('paper')" class="btn-primary text-6xl p-6 rounded-full hover:scale-110 transition-transform">📄</button>
+                    <button onclick="playRound('scissors')" class="btn-primary text-6xl p-6 rounded-full hover:scale-110 transition-transform">✂️</button>
                 </div>
                 
-                <div style="text-align: center;">
-                    <button onclick="resetGame()" style="background: var(--granite-light); color: var(--turquoise-light); border: 2px solid var(--turquoise-dark); padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600;">Reset Game</button>
+                <div class="text-center">
+                    <button onclick="resetGame()" class="btn-secondary">Reset Game</button>
                 </div>
             </div>
             
-            <div style="margin-top: 2rem; text-align: center;">
-                <details style="background: var(--granite-medium); padding: 1rem; border-radius: 8px; color: var(--white);">
-                    <summary style="cursor: pointer; font-weight: 600;">How the AI works</summary>
-                    <p style="margin-top: 0.5rem; color: var(--turquoise-light);">The computer analyzes your last 5 moves to predict your next choice, then plays the counter-move 70% of the time. The other 30% is random to keep you guessing!</p>
+            <div class="mt-8 text-center">
+                <details class="bg-gray-100 p-4 rounded-lg">
+                    <summary class="cursor-pointer font-semibold">How the AI works</summary>
+                    <p class="mt-2 text-gray-600">The computer analyzes your last 5 moves to predict your next choice, then plays the counter-move 70% of the time. The other 30% is random to keep you guessing!</p>
                 </details>
             </div>
         </div>
@@ -178,18 +152,22 @@ function openRoshambo() {
 }
 
 // Contact form handler
-async function handleContactSubmit(event) {
-    event.preventDefault();
+async function handleContactSubmit(e) {
+    e.preventDefault();
     
-    const form = event.target;
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
+    const formData = new FormData(e.target);
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
     
-    // Show loading state
-    const submitButton = form.querySelector('button[type="submit"]');
-    const originalText = submitButton.textContent;
-    submitButton.textContent = 'Sending...';
-    submitButton.disabled = true;
+    // Get form data
+    const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        message: formData.get('message')
+    };
+    
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
     
     try {
         const response = await fetch('/api/contact', {
@@ -203,46 +181,37 @@ async function handleContactSubmit(event) {
         const result = await response.json();
         
         if (response.ok) {
-            // Success
-            alert('Message sent successfully! I\'ll get back to you soon.');
-            form.reset();
+            alert('Thank you for your message! I\'ll get back to you soon.');
+            e.target.reset();
         } else {
-            // Error from server
-            alert(result.message || 'Failed to send message. Please try again.');
+            throw new Error(result.message || 'Failed to send message');
         }
     } catch (error) {
-        console.error('Error sending message:', error);
-        alert('Failed to send message. Please try again or contact me directly.');
+        console.error('Contact form error:', error);
+        alert('Sorry, there was an error sending your message. Please try again or email me directly at joseph@mazzlabs.works');
     } finally {
-        // Restore button state
-        submitButton.textContent = originalText;
-        submitButton.disabled = false;
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
     }
 }
 
-// Resume download function
+// Resume download handler
 async function downloadResume() {
     try {
-        const response = await fetch('/api/download-resume');
-        
-        if (response.ok) {
-            // Create blob and download
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'Joseph_Mazzini_Resume.pdf';
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(a);
-        } else {
-            const error = await response.json();
-            alert(error.message || 'Failed to download resume. Please try again.');
+        // Track download with analytics if available
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'download', {
+                'event_category': 'resume',
+                'event_label': 'Joseph_Mazzini_Resume.pdf'
+            });
         }
+        
+        // Use the Flask endpoint for download
+        window.location.href = '/api/download-resume';
+        
     } catch (error) {
-        console.error('Error downloading resume:', error);
-        alert('Failed to download resume. Please try again or contact me directly.');
+        console.error('Resume download error:', error);
+        alert('Sorry, there was an error downloading the resume. Please try again.');
     }
 }
 

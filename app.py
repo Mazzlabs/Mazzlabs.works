@@ -11,10 +11,6 @@ from email.mime.multipart import MIMEMultipart
 import os
 from datetime import datetime
 import logging
-from dotenv import load_dotenv
-
-# Load environment variables from .env file
-load_dotenv()
 
 app = Flask(__name__)
 
@@ -82,9 +78,9 @@ def send_email(name, email, message):
         # Email configuration from environment variables
         smtp_server = os.getenv('SMTP_SERVER', 'smtp.gmail.com')
         smtp_port = int(os.getenv('SMTP_PORT', '587'))
-        sender_email = os.getenv('EMAIL_USERNAME')
-        sender_password = os.getenv('EMAIL_PASSWORD') 
-        recipient_email = os.getenv('CONTACT_EMAIL')
+        sender_email = os.getenv('SENDER_EMAIL')
+        sender_password = os.getenv('SENDER_PASSWORD') 
+        recipient_email = os.getenv('RECIPIENT_EMAIL')
         
         if not all([sender_email, sender_password, recipient_email]):
             raise ValueError("Email configuration missing from environment variables")
@@ -127,6 +123,10 @@ Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 def health_check():
     return jsonify({'status': 'healthy', 'timestamp': datetime.now().isoformat()})
 
+# Health check endpoint for Digital Ocean
+@app.route('/health')
+def health():
+    return jsonify({'status': 'healthy', 'timestamp': datetime.now().isoformat()})
+
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(debug=False, host='0.0.0.0', port=port)
+    app.run(debug=True, host='0.0.0.0', port=5000)

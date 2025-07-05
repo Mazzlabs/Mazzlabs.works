@@ -3,106 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Joseph Mazzini">
-    <meta name="description" content="Joseph Mazzini - Computer Science Student & Junior Developer Portfolio">
-    <title>Joseph Mazzini - Portfolio</title>
+    <title>MazzLabs - Joseph Mazzini</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="bg-gray-50">
     <!-- Header -->
-    <header class="header">
-        <nav class="nav">
-            <div class="nav-brand">
-                <h1>Joseph Mazzini</h1>
-                <span class="nav-subtitle">Computer Science Student & Developer</span>
+    <header class="bg-gradient-to-r from-granite-dark to-granite-medium text-white fixed w-full top-0 z-50 shadow-lg">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex flex-col">
+                <h1 class="text-2xl font-bold text-turquoise">MazzLabs</h1>
+                <span class="text-sm text-gray-300">Joseph Mazzini</span>
             </div>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#games">Games</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <div class="nav-actions">
-                <div class="social-links">
-                    <a href="https://github.com/J-mazz" target="_blank" aria-label="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/joseph-mazzini-357b62348" target="_blank" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://profile.indeed.com/p/josephm-your-indeed-profile" target="_blank" aria-label="Indeed">
-                        <i class="fas fa-briefcase"></i>
-                    </a>
+            <div class="hidden md:flex space-x-6">
+                <a href="#about" class="hover:text-turquoise transition-colors">About</a>
+                <a href="#projects" class="hover:text-turquoise transition-colors">Projects</a>
+                <a href="#games" class="hover:text-turquoise transition-colors">Games</a>
+                <a href="#contact" class="hover:text-turquoise transition-colors">Contact</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="flex space-x-3">
+                    <a href="#" class="hover:text-turquoise transition-colors"><i class="fab fa-github"></i></a>
+                    <a href="#" class="hover:text-turquoise transition-colors"><i class="fab fa-linkedin"></i></a>
                 </div>
-                <button class="download-resume-btn" id="downloadResumeBtn">
-                    <i class="fas fa-download"></i>
-                    Download Resume
-                </button>
+                <button onclick="downloadResume()" class="btn-primary text-sm">Download Resume</button>
             </div>
         </nav>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>CS Student, Aspiring Developer</h1>
-                <h2>Learning to build modern web applications</h2>
-                <p>A motivated Computer Science student with experience in Linux systems, Python development, and web applications. Combining practical IT infrastructure management with a growing interest in software development and machine learning.</p>
-                <div class="hero-cta">
-                    <a href="#projects" class="cta-btn primary">View Projects</a>
-                    <a href="#contact" class="cta-btn secondary">Get In Touch</a>
+    <section class="bg-gradient-to-br from-granite-dark via-granite-medium to-turquoise-dark text-white min-h-screen flex items-center pt-20">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-5xl font-bold mb-6">Full Stack Developer</h2>
+                    <p class="text-xl mb-8 text-gray-300">Building elegant solutions with modern technology</p>
+                    <div class="flex space-x-4">
+                        <a href="#projects" class="btn-primary">View Projects</a>
+                        <a href="#contact" class="btn-secondary">Get in Touch</a>
+                    </div>
                 </div>
-            </div>
-            <div class="hero-image">
-                <div class="code-animation">
-                    <div class="code-line"></div>
-                    <div class="code-line"></div>
-                    <div class="code-line"></div>
-                    <div class="code-line"></div>
+                <div class="flex justify-center">
+                    <div class="w-80 h-60 bg-black bg-opacity-20 rounded-lg p-6 backdrop-blur-sm">
+                        <div class="code-animation">
+                            <div class="h-4 bg-turquoise-medium rounded mb-3 animate-pulse"></div>
+                            <div class="h-4 bg-turquoise-light rounded mb-3 animate-pulse" style="animation-delay: 0.5s"></div>
+                            <div class="h-4 bg-turquoise-medium rounded mb-3 animate-pulse" style="animation-delay: 1s"></div>
+                            <div class="h-4 bg-turquoise-light rounded animate-pulse" style="animation-delay: 1.5s"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-profile">
-                    <div class="profile-image">
-                        <img src="/assets/avatar.jpg?v=2" alt="Joseph Mazzini" class="avatar-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="avatar-fallback" style="display: none;">JM</div>
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-granite-dark">About Me</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="text-center">
+                    <div class="w-48 h-48 bg-gradient-to-br from-turquoise-dark to-turquoise-medium rounded-full flex items-center justify-center text-white text-6xl font-bold mx-auto mb-6">
+                        JM
                     </div>
-                    <div class="about-text">
-                        <p>I'm a Computer Science student at Rogue Community College, working toward transferring to Oregon State University. My journey combines hands-on IT infrastructure management with a growing passion for software development and machine learning.</p>
-                    </div>
+                    <p class="text-lg text-gray-600 leading-relaxed">
+                        Passionate full-stack developer with expertise in modern web technologies. 
+                        I love creating clean, efficient code and building applications that make a difference.
+                    </p>
                 </div>
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h3>Comfortable With</h3>
-                        <ul>
-                            <li>Python</li>
-                            <li>Git & GitHub</li>
-                            <li>Linux (Debian/Ubuntu)</li>
-                            <li>Shell Scripting</li>
-                            <li>MongoDB</li>
-                            <li>CLI</li>
-                            <li>DigitalOcean</li>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-4 text-granite-dark">Frontend</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li>• React/Vue.js</li>
+                            <li>• JavaScript ES6+</li>
+                            <li>• Tailwind CSS</li>
+                            <li>• TypeScript</li>
                         </ul>
                     </div>
-                    <div class="skill-category">
-                        <h3>Currently Learning</h3>
-                        <ul>
-                            <li>JavaScript</li>
-                            <li>React</li>
-                            <li>Node.js</li>
-                            <li>TypeScript</li>
-                            <li>PostgreSQL</li>
-                            <li>Express.js</li>
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-4 text-granite-dark">Backend</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li>• Node.js/Express</li>
+                            <li>• Python/Django</li>
+                            <li>• PostgreSQL</li>
+                            <li>• REST APIs</li>
                         </ul>
                     </div>
                 </div>
@@ -111,95 +97,80 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="projects-grid">
+    <section id="projects" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-granite-dark">Featured Projects</h2>
+            <div class="grid md:grid-cols-2 gap-8">
                 <!-- Project 1 -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Rip City Ticket Dispatch</h3>
-                        <div class="project-links">
-                            <a href="https://ripcityticketdispatch.works" target="_blank" class="project-link">
-                                <i class="fas fa-external-link-alt"></i>
-                                Live Site
-                            </a>
-                        </div>
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-2xl font-semibold text-granite-dark">Rip City Ticket Dispatch</h3>
+                        <a href="https://ripcityticketdispatch.works" target="_blank" class="text-turquoise hover:underline">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
                     </div>
-                    <div class="project-description">
-                        <p>Full-stack event discovery platform for the Pacific Northwest, aggregating data from sources like Ticketmaster and Eventbrite.</p>
-                        <ul class="project-features">
-                            <li>React/TypeScript frontend with Node.js/Express backend</li>
-                            <li>MongoDB database deployed on DigitalOcean with Nginx</li>
-                            <li>AI-powered deal engine using OpenAI for recommendations</li>
-                            <li>Multi-channel notifications via Twilio and SendGrid</li>
-                            <li>Stripe integration for monetization</li>
-                        </ul>
-                        <div class="project-tech">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">TypeScript</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">MongoDB</span>
-                            <span class="tech-tag">OpenAI</span>
-                        </div>
+                    <p class="text-gray-600 mb-4">Full-stack event discovery platform for the Pacific Northwest, aggregating data from sources like Ticketmaster and Eventbrite.</p>
+                    <ul class="list-disc list-inside mb-4">
+                        <li class="text-gray-600">React/TypeScript frontend with Node.js/Express backend</li>
+                        <li class="text-gray-600">MongoDB database deployed on DigitalOcean with Nginx</li>
+                        <li class="text-gray-600">AI-powered deal engine using OpenAI for recommendations</li>
+                        <li class="text-gray-600">Multi-channel notifications via Twilio and SendGrid</li>
+                        <li class="text-gray-600">Stripe integration for monetization</li>
+                    </ul>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-turquoise-light text-turquoise-dark rounded-full px-3 py-1 text-sm font-semibold">React</span>
+                        <span class="bg-turquoise-light text-turquoise-dark rounded-full px-3 py-1 text-sm font-semibold">TypeScript</span>
+                        <span class="bg-turquoise-light text-turquoise-dark rounded-full px-3 py-1 text-sm font-semibold">Node.js</span>
+                        <span class="bg-turquoise-light text-turquoise-dark rounded-full px-3 py-1 text-sm font-semibold">MongoDB</span>
+                        <span class="bg-turquoise-light text-turquoise-dark rounded-full px-3 py-1 text-sm font-semibold">OpenAI</span>
                     </div>
                 </div>
 
                 <!-- Project 2 -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Veritas-Lens: Political Bias Detector</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/J-mazz/Veritas-Lens" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i>
-                                GitHub
-                            </a>
-                        </div>
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-2xl font-semibold text-granite-dark">Veritas-Lens: Political Bias Detector</h3>
+                        <a href="https://github.com/J-mazz/Veritas-Lens" target="_blank" class="text-turquoise hover:underline">
+                            <i class="fab fa-github"></i>
+                        </a>
                     </div>
-                    <div class="project-description">
-                        <p>Machine learning model to classify political bias in news articles using fine-tuned BERT architecture, with 82.15% validation accuracy.</p>
-                        <ul class="project-features">
-                            <li>Fine-tuned bert-base-uncased model for sequence classification</li>
-                            <li>Data preprocessing pipeline combining multiple Hugging Face datasets</li>
-                            <li>Full-stack application with TypeScript/Express.js backend</li>
-                            <li>RESTful API with active learning capabilities</li>
-                        </ul>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">BERT</span>
-                            <span class="tech-tag">TypeScript</span>
-                            <span class="tech-tag">Express.js</span>
-                            <span class="tech-tag">Machine Learning</span>
-                        </div>
+                    <p class="text-gray-600 mb-4">Machine learning model to classify political bias in news articles using fine-tuned BERT architecture, achieving 82.15% validation accuracy.</p>
+                    <ul class="list-disc list-inside mb-4">
+                        <li class="text-gray-600">Fine-tuned bert-base-uncased model for sequence classification</li>
+                        <li class="text-gray-600">Robust data preprocessing pipeline combining multiple Hugging Face datasets</li>
+                        <li class="text-gray-600">Full-stack application with TypeScript/Express.js backend</li>
+                        <li class="text-gray-600">RESTful API with active learning capabilities</li>
+                    </ul>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-turquoise-light text-turquoise-dark rounded-full px-3 py-1 text-sm font-semibold">Python</span>
+                        <span class="bg-turquoise-light text-turquoise-dark rounded-full px-3 py-1 text-sm font-semibold">BERT</span>
+                        <span class="bg-turquoise-light text-turquoise-dark rounded-full px-3 py-1 text-sm font-semibold">TypeScript</span>
+                        <span class="bg-turquoise-light text-turquoise-dark rounded-full px-3 py-1 text-sm font-semibold">Express.js</span>
+                        <span class="bg-turquoise-light text-turquoise-dark rounded-full px-3 py-1 text-sm font-semibold">Machine Learning</span>
                     </div>
                 </div>
 
                 <!-- Project 3 -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Robust-Cite: NER Citation Parser</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/J-mazz/robust-cite" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i>
-                                GitHub
-                            </a>
-                        </div>
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-2xl font-semibold text-granite-dark">Robust-Cite: NER Citation Parser</h3>
+                        <a href="https://github.com/J-mazz/robust-cite" target="_blank" class="text-turquoise hover:underline">
+                            <i class="fab fa-github"></i>
+                        </a>
                     </div>
-                    <div class="project-description">
-                        <p>Named Entity Recognition system for parsing bibliographic components from academic citations using fine-tuned BERT model.</p>
-                        <ul class="project-features">
-                            <li>Training pipeline in TensorFlow/Keras with mixed-precision</li>
-                            <li>Validation accuracy of 99.97% on 30,000-citation dataset</li>
-                            <li>Mixed-precision training and learning rate scheduling</li>
-                            <li>Identifies 19 distinct entity labels (author, title, year, etc.)</li>
-                        </ul>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">TensorFlow</span>
-                            <span class="tech-tag">BERT</span>
-                            <span class="tech-tag">NER</span>
-                            <span class="tech-tag">Keras</span>
-                        </div>
+                    <p class="text-gray-600 mb-4">Named Entity Recognition system for parsing bibliographic components from academic citations using fine-tuned BERT model.</p>
+                    <ul class="list-disc list-inside mb-4">
+                        <li class="text-gray-600">Advanced training pipeline in TensorFlow/Keras</li>
+                        <li class="text-gray-600">99.97% validation accuracy on 30,000-citation dataset</li>
+                        <li class="text-gray-600">Mixed-precision training and learning rate scheduling</li>
+                        <li class="text-gray-600">Identifies 19 distinct entity labels (author, title, year, etc.)</li>
+                    </ul>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-turquoise-light text-turquoise-dark rounded-full px-3 py-1 text-sm font-semibold">Python</span>
+                        <span class="bg-turquoise-light text-turquoise-dark rounded-full px-3 py-1 text-sm font-semibold">TensorFlow</span>
+                        <span class="bg-turquoise-light text-turquoise-dark rounded-full px-3 py-1 text-sm font-semibold">BERT</span>
+                        <span class="bg-turquoise-light text-turquoise-dark rounded-full px-3 py-1 text-sm font-semibold">NER</span>
+                        <span class="bg-turquoise-light text-turquoise-dark rounded-full px-3 py-1 text-sm font-semibold">Keras</span>
                     </div>
                 </div>
             </div>
@@ -207,54 +178,77 @@
     </section>
 
     <!-- Games Section -->
-    <section id="games" class="games">
-        <div class="container">
-            <h2 class="section-title">Interactive Games</h2>
-            <p class="section-description">Check out these Python-based games I've developed, now playable in your browser</p>
-            <div class="games-grid">
-                <div class="game-card">
-                    <div class="game-header">
-                        <h3>Blackjack</h3>
-                        <i class="fas fa-spade-suit game-icon"></i>
-                    </div>
-                    <p class="game-description">A Blackjack game with proper odds, betting system, and dealer AI. Includes dynamic ace handling and realistic casino rules.</p>
-                    <button class="play-btn" data-game="blackjack">
-                        <i class="fas fa-play"></i>
-                        Play Blackjack
-                    </button>
+    <section id="games" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-granite-dark">Interactive Games</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-8 text-center">
+                    <div class="text-6xl mb-4">🃏</div>
+                    <h3 class="text-2xl font-semibold mb-4">Blackjack</h3>
+                    <p class="text-gray-600 mb-6">Test your luck and strategy in this classic card game</p>
+                    <button onclick="openBlackjack()" class="btn-primary">Play Now</button>
                 </div>
-                <div class="game-card">
-                    <div class="game-header">
-                        <h3>Adaptive Rock-Paper-Scissors</h3>
-                        <i class="fas fa-hand-rock game-icon"></i>
-                    </div>
-                    <p class="game-description">A Rock-Paper-Scissors game where the computer learns from your patterns and adapts its strategy accordingly.</p>
-                    <button class="play-btn" data-game="roshambo">
-                        <i class="fas fa-play"></i>
-                        Play Ro-Sham-Bo
-                    </button>
+                <div class="bg-white rounded-lg shadow-lg p-8 text-center">
+                    <div class="text-6xl mb-4">🔤</div>
+                    <h3 class="text-2xl font-semibold mb-4">Ro-Sham-Bo</h3>
+                    <p class="text-gray-600 mb-6">Challenge the AI that learns from your moves!</p>
+                    <button onclick="openWordGuess()" class="btn-primary">Play Now</button>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Let's Connect</h3>
-                    <p>I'm always interested in discussing new opportunities, collaborations, or just chatting about technology and development.</p>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <a href="mailto:joseph@mazzlabs.works">joseph@mazzlabs.works</a>
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-granite-dark">Get In Touch</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">Let's Connect</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <i class="fas fa-envelope text-turquoise-medium"></i>
+                            <span>joseph@mazzlabs.works</span>
                         </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <a href="tel:541-292-6067">(541) 292-6067</a>
+                        <div class="flex items-center space-x-4">
+                            <i class="fab fa-github text-turquoise-medium"></i>
+                            <span>github.com/josephmazzini</span>
                         </div>
+                        <div class="flex items-center space-x-4">
+                            <i class="fab fa-linkedin text-turquoise-medium"></i>
+                            <span>linkedin.com/in/josephmazzini</span>
+                        </div>
+                    </div>
+                </div>
+                <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-4">
+                    <input type="text" name="name" placeholder="Your Name" required class="w-full p-4 border border-gray-300 rounded-lg focus:border-turquoise-medium focus:outline-none">
+                    <input type="email" name="email" placeholder="Your Email" required class="w-full p-4 border border-gray-300 rounded-lg focus:border-turquoise-medium focus:outline-none">
+                    <textarea name="message" placeholder="Your Message" rows="5" required class="w-full p-4 border border-gray-300 rounded-lg focus:border-turquoise-medium focus:outline-none"></textarea>
+                    <button type="submit" class="btn-primary w-full">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Modal -->
+    <div id="game-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+        <div class="bg-white rounded-lg max-w-6xl w-full mx-4 max-h-[90vh] overflow-hidden">
+            <div class="bg-gradient-to-r from-granite-dark to-granite-medium text-white p-4 flex justify-between items-center">
+                <h3 id="game-title" class="text-xl font-semibold">Game</h3>
+                <button onclick="closeGameModal()" class="text-white hover:text-turquoise-medium text-2xl">&times;</button>
+            </div>
+            <div id="game-content" class="p-6 overflow-y-auto max-h-[80vh]">
+                <!-- Game content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/main.js"></script>
+    <script src="scripts/blackjack.js"></script>
+    <script src="scripts/roshambo.js"></script>
+</body>
+</html>
                         <div class="contact-item">
                             <i class="fas fa-map-marker-alt"></i>
                             <span>Medford, OR</span>
@@ -311,7 +305,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Joseph Mazzini. Continuously learning and growing as a developer.</p>
+                <p>&copy; 2025 Joseph Mazzini. Built with passion for clean code and great user experience.</p>
             </div>
         </div>
     </footer>
@@ -321,7 +315,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 id="gameTitle"></h3>
-                <button class="close-btn" id="closeGameBtn">
+                <button class="close-btn" onclick="closeGame()">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -331,8 +325,7 @@
         </div>
     </div>
 
-    <script src="scripts/main.js"></script>
-    <script src="scripts/blackjack.js"></script>
-    <script src="scripts/roshambo.js"></script>
+    <script src="script.js"></script>
 </body>
+</html>
 </html>
