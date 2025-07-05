@@ -83,26 +83,26 @@ class RoshamboGame {
         const resultDiv = document.getElementById('result-message');
         
         if (winner === 'tie') {
-            resultDiv.innerHTML = `<span class="text-gray-600">It's a tie!</span>`;
+            resultDiv.innerHTML = `<span style="color: var(--granite-lighter);">It's a tie!</span>`;
         } else {
             const winningChoice = winner === 'user' ? userChoice : computerChoice;
             const losingChoice = winner === 'user' ? computerChoice : userChoice;
             const verb = this.rules[winningChoice][losingChoice];
             const winnerName = winner === 'user' ? 'You' : 'Computer';
             
-            const colorClass = winner === 'user' ? 'text-green-600' : 'text-red-600';
+            const color = winner === 'user' ? 'var(--turquoise-light)' : '#d32f2f';
             resultDiv.innerHTML = `
-                <span class="${colorClass}">
+                <span style="color: ${color};">
                     ${winningChoice.charAt(0).toUpperCase() + winningChoice.slice(1)} ${verb} ${losingChoice}! ${winnerName} win!
                 </span>
             `;
         }
         
         // Add some animation
-        resultDiv.classList.add('animate-pulse');
+        resultDiv.style.opacity = '0';
         setTimeout(() => {
-            resultDiv.classList.remove('animate-pulse');
-        }, 1000);
+            resultDiv.style.opacity = '1';
+        }, 100);
     }
 
     reset() {

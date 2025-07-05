@@ -14,8 +14,35 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Game button event listeners
+    document.querySelectorAll('.play-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const game = this.getAttribute('data-game');
+            if (game === 'blackjack') {
+                openBlackjack();
+            } else if (game === 'roshambo') {
+                openRoshambo();
+            }
+        });
+    });
+
+    // Resume download buttons
+    document.querySelectorAll('.download-resume-btn').forEach(button => {
+        button.addEventListener('click', downloadResume);
+    });
+
+    // Close modal button
+    document.getElementById('closeGameBtn').addEventListener('click', closeGameModal);
+
+    // Close modal on overlay click
+    document.getElementById('gameModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeGameModal();
+        }
+    });
+
     // Contact form handling
-    const contactForm = document.querySelector('#contact form');
+    const contactForm = document.querySelector('#contactForm');
     if (contactForm) {
         contactForm.addEventListener('submit', handleContactSubmit);
     }
@@ -23,15 +50,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Game modal functions
 function openGameModal(title, content) {
-    document.getElementById('game-title').textContent = title;
-    document.getElementById('game-content').innerHTML = content;
-    document.getElementById('game-modal').classList.remove('hidden');
-    document.getElementById('game-modal').classList.add('flex');
+    document.getElementById('gameTitle').textContent = title;
+    document.getElementById('gameContainer').innerHTML = content;
+    document.getElementById('gameModal').style.display = 'flex';
 }
 
 function closeGameModal() {
-    document.getElementById('game-modal').classList.add('hidden');
-    document.getElementById('game-modal').classList.remove('flex');
+    document.getElementById('gameModal').style.display = 'none';
+    document.getElementById('gameContainer').innerHTML = '';
 }
 
 function openBlackjack() {
@@ -87,68 +113,67 @@ function openBlackjack() {
     initializeBlackjack();
 }
 
-function openWordGuess() {
+function openRoshambo() {
     const roshamboHTML = `
-        <div id="roshambo-game" class="max-w-2xl mx-auto">
-            <div class="text-center mb-8">
-                <h2 class="text-4xl font-bold mb-4">Ro-Sham-Bo!</h2>
-                <p class="text-lg text-gray-600 mb-6">The computer learns from your choices... Can you outsmart it?</p>
+        <div id="roshambo-game" style="max-width: 600px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h2 style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem;">Ro-Sham-Bo!</h2>
+                <p style="font-size: 1.1rem; color: var(--turquoise-light); margin-bottom: 1.5rem;">The computer learns from your choices... Can you outsmart it?</p>
                 
-                <div class="grid grid-cols-3 gap-4 mb-6">
-                    <div class="bg-gray-100 p-4 rounded-lg">
-                        <h3 class="font-semibold text-lg">You</h3>
-                        <div class="text-3xl font-bold text-turquoise-medium" id="user-score">0</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                    <div style="background: var(--granite-medium); padding: 1rem; border-radius: 8px; color: var(--white);">
+                        <h3 style="font-weight: 600; font-size: 1.1rem;">You</h3>
+                        <div style="font-size: 2rem; font-weight: bold; color: var(--turquoise-light);" id="user-score">0</div>
                     </div>
-                    <div class="bg-gray-100 p-4 rounded-lg">
-                        <h3 class="font-semibold text-lg">Ties</h3>
-                        <div class="text-3xl font-bold text-gray-600" id="tie-score">0</div>
+                    <div style="background: var(--granite-medium); padding: 1rem; border-radius: 8px; color: var(--white);">
+                        <h3 style="font-weight: 600; font-size: 1.1rem;">Ties</h3>
+                        <div style="font-size: 2rem; font-weight: bold; color: var(--granite-lighter);" id="tie-score">0</div>
                     </div>
-                    <div class="bg-gray-100 p-4 rounded-lg">
-                        <h3 class="font-semibold text-lg">Computer</h3>
-                        <div class="text-3xl font-bold text-red-600" id="computer-score">0</div>
+                    <div style="background: var(--granite-medium); padding: 1rem; border-radius: 8px; color: var(--white);">
+                        <h3 style="font-weight: 600; font-size: 1.1rem;">Computer</h3>
+                        <div style="font-size: 2rem; font-weight: bold; color: #d32f2f;" id="computer-score">0</div>
                     </div>
                 </div>
             </div>
             
-            <div class="text-center mb-8">
-                <div class="grid grid-cols-2 gap-8 mb-6">
-                    <div class="text-center">
-                        <h3 class="text-xl font-semibold mb-4">Your Choice</h3>
-                        <div id="user-choice" class="text-8xl mb-4">❓</div>
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 1.5rem;">
+                    <div style="text-align: center;">
+                        <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; color: var(--white);">Your Choice</h3>
+                        <div id="user-choice" style="font-size: 4rem; margin-bottom: 1rem;">❓</div>
                     </div>
-                    <div class="text-center">
-                        <h3 class="text-xl font-semibold mb-4">Computer's Choice</h3>
-                        <div id="computer-choice" class="text-8xl mb-4">❓</div>
+                    <div style="text-align: center;">
+                        <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; color: var(--white);">Computer's Choice</h3>
+                        <div id="computer-choice" style="font-size: 4rem; margin-bottom: 1rem;">❓</div>
                     </div>
                 </div>
                 
-                <div id="result-message" class="text-2xl font-bold mb-6 h-16 flex items-center justify-center"></div>
+                <div id="result-message" style="font-size: 1.3rem; font-weight: bold; margin-bottom: 1.5rem; height: 3rem; display: flex; align-items: center; justify-content: center; color: var(--turquoise-light);"></div>
             </div>
             
-            <div class="text-center">
-                <h3 class="text-xl font-semibold mb-4">Make Your Choice</h3>
-                <div class="flex justify-center space-x-4 mb-6">
-                    <button onclick="playRound('rock')" class="btn-primary text-6xl p-6 rounded-full hover:scale-110 transition-transform">🪨</button>
-                    <button onclick="playRound('paper')" class="btn-primary text-6xl p-6 rounded-full hover:scale-110 transition-transform">📄</button>
-                    <button onclick="playRound('scissors')" class="btn-primary text-6xl p-6 rounded-full hover:scale-110 transition-transform">✂️</button>
+            <div style="text-align: center;">
+                <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; color: var(--white);">Make Your Choice</h3>
+                <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem;">
+                    <button onclick="playRound('rock')" style="background: var(--turquoise-medium); color: white; border: none; font-size: 3rem; padding: 1rem; border-radius: 50%; cursor: pointer; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">🪨</button>
+                    <button onclick="playRound('paper')" style="background: var(--turquoise-medium); color: white; border: none; font-size: 3rem; padding: 1rem; border-radius: 50%; cursor: pointer; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">📄</button>
+                    <button onclick="playRound('scissors')" style="background: var(--turquoise-medium); color: white; border: none; font-size: 3rem; padding: 1rem; border-radius: 50%; cursor: pointer; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">✂️</button>
                 </div>
                 
-                <div class="text-center">
-                    <button onclick="resetGame()" class="btn-secondary">Reset Game</button>
+                <div style="text-align: center;">
+                    <button onclick="resetGame()" style="background: var(--granite-light); color: var(--turquoise-light); border: 2px solid var(--turquoise-dark); padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600;">Reset Game</button>
                 </div>
             </div>
             
-            <div class="mt-8 text-center">
-                <details class="bg-gray-100 p-4 rounded-lg">
-                    <summary class="cursor-pointer font-semibold">How the AI works</summary>
-                    <p class="mt-2 text-gray-600">The computer analyzes your last 5 moves to predict your next choice, then plays the counter-move 70% of the time. The other 30% is random to keep you guessing!</p>
+            <div style="margin-top: 2rem; text-align: center;">
+                <details style="background: var(--granite-medium); padding: 1rem; border-radius: 8px; color: var(--white);">
+                    <summary style="cursor: pointer; font-weight: 600;">How the AI works</summary>
+                    <p style="margin-top: 0.5rem; color: var(--turquoise-light);">The computer analyzes your last 5 moves to predict your next choice, then plays the counter-move 70% of the time. The other 30% is random to keep you guessing!</p>
                 </details>
             </div>
         </div>
     `;
     
     openGameModal('Ro-Sham-Bo', roshamboHTML);
-    initializeRoshambo();
     initializeRoshambo();
 }
 

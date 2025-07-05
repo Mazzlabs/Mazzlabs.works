@@ -88,10 +88,21 @@ function createCardElement(card, isHidden = false) {
     } else {
         const isRed = ['♥', '♦'].includes(card.suit);
         cardDiv.className += isRed ? ' card-red' : ' card-black';
-        cardDiv.innerHTML = `
-            <div class="text-lg font-bold">${card.rank}</div>
-            <div class="text-2xl">${card.suit}</div>
-        `;
+        
+        // Create rank element
+        const rankDiv = document.createElement('div');
+        rankDiv.className = 'card-rank';
+        rankDiv.textContent = card.rank;
+        
+        // Create suit element
+        const suitDiv = document.createElement('div');
+        suitDiv.className = 'card-suit';
+        suitDiv.textContent = card.suit;
+        
+        // Clear and append elements
+        cardDiv.innerHTML = '';
+        cardDiv.appendChild(rankDiv);
+        cardDiv.appendChild(suitDiv);
     }
     
     return cardDiv;
