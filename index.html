@@ -43,8 +43,8 @@
             <div class="hidden md:flex space-x-6">
                 <a href="#about" class="hover:text-turquoise transition-colors">About</a>
                 <a href="#projects" class="hover:text-turquoise transition-colors">Projects</a>
-                <a href="#games" class="hover:text-turquoise transition-colors">Games</a>
-                <a href="#contact" class="hover:text-turquoise transition-colors">Contact</a>
+                <a href="#games" class="hover:text-turquoise transition-colors">Demos</a>
+                <a href="#contact" class="hover:text-turquoise transition-colors">Collaborate</a>
             </div>
             <div class="flex items-center space-x-4">
                 <div class="flex space-x-3">
@@ -65,7 +65,7 @@
                     <p class="text-xl mb-8 text-gray-300">Learning to build solutions with modern technology</p>
                     <div class="flex space-x-4">
                         <a href="#projects" class="btn-primary">View Projects</a>
-                        <a href="#contact" class="btn-secondary">Get in Touch</a>
+                        <a href="#contact" class="btn-secondary">Collaborate</a>
                     </div>
                 </div>
                 <div class="flex justify-center">
@@ -162,6 +162,50 @@
         </div>
     </section>
 
+    <!-- Website Tech Stack Section -->
+    <section class="py-20 bg-granite-dark text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12">About This Website</h2>
+            <div class="max-w-4xl mx-auto">
+                <p class="text-xl text-center mb-8 text-gray-300">
+                    This portfolio is a full-stack web application showcasing modern development practices and cloud deployment.
+                </p>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">🎨</div>
+                        <h3 class="text-xl font-semibold mb-3">Frontend</h3>
+                        <ul class="text-gray-300 space-y-2">
+                            <li>HTML5 & ES6+ JavaScript</li>
+                            <li>Tailwind CSS for styling</li>
+                            <li>Responsive design patterns</li>
+                            <li>CSS animations & transitions</li>
+                        </ul>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">⚙️</div>
+                        <h3 class="text-xl font-semibold mb-3">Backend</h3>
+                        <ul class="text-gray-300 space-y-2">
+                            <li>Flask Python web framework</li>
+                            <li>Contact form processing</li>
+                            <li>Resume download functionality</li>
+                            <li>RESTful API endpoints</li>
+                        </ul>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">☁️</div>
+                        <h3 class="text-xl font-semibold mb-3">Infrastructure</h3>
+                        <ul class="text-gray-300 space-y-2">
+                            <li>DigitalOcean App Platform</li>
+                            <li>Cloudflare domain management</li>
+                            <li>Docker containerization</li>
+                            <li>CI/CD deployment pipeline</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Projects Section -->
     <section id="projects" class="py-20 bg-gray-50">
         <div class="container mx-auto px-4">
@@ -246,19 +290,49 @@
     <!-- Games Section -->
     <section id="games" class="py-20 bg-gray-50">
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-12 text-granite-dark">Interactive Games</h2>
+            <h2 class="text-4xl font-bold text-center mb-12 text-granite-dark">Interactive Demos</h2>
+            <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">
+                These games were originally developed in Python and translated to JavaScript for web deployment. 
+                They demonstrate fundamental programming concepts and game logic implementation.
+            </p>
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-white rounded-lg shadow-lg p-8 text-center">
-                    <div class="text-6xl mb-4">🃏</div>
-                    <h3 class="text-2xl font-semibold mb-4">Blackjack</h3>
-                    <p class="text-gray-600 mb-6">Simple implementation of the classic card game</p>
-                    <button onclick="openBlackjack()" class="btn-primary">Play Now</button>
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <div class="text-center mb-6">
+                        <div class="text-6xl mb-4">🃏</div>
+                        <h3 class="text-2xl font-semibold mb-4">Blackjack</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Classic card game with proper rule implementation, card counting, and bet management.</p>
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-granite-dark mb-2">Technical Implementation:</h4>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Object-oriented JavaScript with ES6+ features</li>
+                            <li>• Game state management and rule validation</li>
+                            <li>• Card shuffling algorithms and deck management</li>
+                            <li>• Responsive design with CSS animations</li>
+                        </ul>
+                    </div>
+                    <div class="text-center">
+                        <button onclick="openBlackjack()" class="btn-primary">Try Demo</button>
+                    </div>
                 </div>
-                <div class="bg-white rounded-lg shadow-lg p-8 text-center">
-                    <div class="text-6xl mb-4">🔤</div>
-                    <h3 class="text-2xl font-semibold mb-4">Ro-Sham-Bo</h3>
-                    <p class="text-gray-600 mb-6">Rock-paper-scissors game with pattern recognition</p>
-                    <button onclick="openWordGuess()" class="btn-primary">Play Now</button>
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <div class="text-center mb-6">
+                        <div class="text-6xl mb-4">✂️</div>
+                        <h3 class="text-2xl font-semibold mb-4">Ro-Sham-Bo</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Rock-paper-scissors with pattern detection that tracks player tendencies over multiple rounds.</p>
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-granite-dark mb-2">Technical Implementation:</h4>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Move history tracking and frequency analysis</li>
+                            <li>• Statistical pattern recognition algorithms</li>
+                            <li>• Probability-based move prediction</li>
+                            <li>• Interactive UI with real-time feedback</li>
+                        </ul>
+                    </div>
+                    <div class="text-center">
+                        <button onclick="openWordGuess()" class="btn-primary">Try Demo</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -267,10 +341,11 @@
     <!-- Contact Section -->
     <section id="contact" class="py-20 bg-white">
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-12 text-granite-dark">Get In Touch</h2>
+            <h2 class="text-4xl font-bold text-center mb-12 text-granite-dark">Let's Collaborate</h2>
             <div class="grid md:grid-cols-2 gap-12">
                 <div>
-                    <h3 class="text-2xl font-semibold mb-6">Contact</h3>
+                    <h3 class="text-2xl font-semibold mb-6">Let's Work Together</h3>
+                    <p class="text-gray-600 mb-6">Interested in discussing opportunities or collaborating on projects? I'd love to hear from you.</p>
                     <div class="space-y-4">
                         <div class="flex items-center space-x-4">
                             <i class="fas fa-envelope text-turquoise-medium"></i>
@@ -289,7 +364,7 @@
                 <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-4">
                     <input type="text" name="name" placeholder="Your Name" required class="w-full p-4 border border-gray-300 rounded-lg focus:border-turquoise-medium focus:outline-none">
                     <input type="email" name="email" placeholder="Your Email" required class="w-full p-4 border border-gray-300 rounded-lg focus:border-turquoise-medium focus:outline-none">
-                    <textarea name="message" placeholder="Your Message" rows="5" required class="w-full p-4 border border-gray-300 rounded-lg focus:border-turquoise-medium focus:outline-none"></textarea>
+                    <textarea name="message" placeholder="Tell me about your project or opportunity" rows="5" required class="w-full p-4 border border-gray-300 rounded-lg focus:border-turquoise-medium focus:outline-none"></textarea>
                     <button type="submit" class="btn-primary w-full">Send Message</button>
                 </form>
             </div>
