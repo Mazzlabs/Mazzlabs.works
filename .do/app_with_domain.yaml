@@ -1,0 +1,35 @@
+name: mazzlabs-portfolio
+services:
+- name: web
+  source_dir: /
+  github:
+    repo: Mazzlabs/Mazzlabs.works
+    branch: main
+  dockerfile_path: Dockerfile
+  instance_count: 1
+  instance_size_slug: basic-xxs
+  http_port: 8080
+  routes:
+  - path: /
+  health_check:
+    http_path: /health
+  envs:
+  - key: SECRET_KEY
+    scope: RUN_TIME
+    type: SECRET
+  - key: CONTACT_EMAIL
+    scope: RUN_TIME
+    value: joseph@mazzlabs.works
+  - key: FLASK_ENV
+    scope: RUN_TIME
+    value: production
+  - key: EMAIL_USERNAME
+    scope: RUN_TIME
+    type: SECRET
+  - key: EMAIL_PASSWORD
+    scope: RUN_TIME
+    type: SECRET
+domains:
+- domain: mazzlabs.works
+  type: PRIMARY
+  minimum_tls_version: "1.2"
