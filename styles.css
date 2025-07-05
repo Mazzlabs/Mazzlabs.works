@@ -9,10 +9,10 @@
   --turquoise-rgb: 32, 160, 160;
 }
 
-/* Custom Tailwind Extensions */
-@tailwind base;
+/* Custom Tailwind Extensions - Using CDN so no need for @tailwind directives */
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
 
 /* Custom Component Classes */
 .btn-primary {
