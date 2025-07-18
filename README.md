@@ -27,35 +27,6 @@ A modern, responsive portfolio website built with HTML5, CSS3, JavaScript (ES6),
 - ReportLab for PDF generation
 - SMTP email integration
 
-## Quick Start
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/J-mazz/portfolio.git
-   cd portfolio
-   ```
-
-2. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Set up environment variables**
-   Create a `.env` file:
-   ```
-   SECRET_KEY=your-secret-key-here
-   EMAIL_USERNAME=your-email@gmail.com
-   EMAIL_PASSWORD=your-app-password
-   CONTACT_EMAIL=joseph@mazzlabs.works
-   ```
-
-4. **Run the development server**
-   ```bash
-   python app.py
-   ```
-
-5. **Open in browser**
-   Navigate to `http://localhost:5000`
 
 ## Project Structure
 
@@ -96,48 +67,7 @@ portfolio/
 
 ### DigitalOcean App Platform
 
-This portfolio is designed to be deployed on DigitalOcean App Platform with automatic deployments from GitHub.
-
-#### Quick Deploy
-
-1. **Push to GitHub**
-   ```bash
-   ./deploy.sh
-   ```
-
-2. **Create DigitalOcean App**
-   - Go to [DigitalOcean Apps](https://cloud.digitalocean.com/apps)
-   - Click "Create App"
-   - Connect your GitHub repository: `Mazzlabs/Mazzlabs.works`
-   - Use the included `.do/app.yaml` configuration
-
-3. **Set Environment Variables**
-   - `SECRET_KEY`: A secure secret key for Flask sessions
-   - `EMAIL_USERNAME`: Your email address for contact form
-   - `EMAIL_PASSWORD`: Your email app password
-   - `CONTACT_EMAIL`: Email to receive contact submissions
-
-#### Manual Deploy Steps
-
-1. **Clone and setup**
-   ```bash
-   git clone https://github.com/Mazzlabs/Mazzlabs.works.git
-   cd Mazzlabs.works
-   pip install -r requirements.txt
-   ```
-
-2. **Set environment variables**
-   ```bash
-   export SECRET_KEY="your-secret-key"
-   export EMAIL_USERNAME="your-email@domain.com"
-   export EMAIL_PASSWORD="your-app-password"
-   export CONTACT_EMAIL="joseph@mazzlabs.works"
-   ```
-
-3. **Run locally**
-   ```bash
-   python app.py
-   ```
+This portfolio is deployed on DigitalOcean App Platform with automatic deployments from GitHub. With Cloudflare DNS management.
 
 #### Production Configuration
 
@@ -146,17 +76,6 @@ This portfolio is designed to be deployed on DigitalOcean App Platform with auto
 - Health checks enabled
 - Static files served by Flask
 - Environment variables for configuration
-
-### Custom Domain Setup
-
-1. **Add domain in DigitalOcean**
-   - Go to your app settings
-   - Add custom domain: `mazzlabs.works`
-   - Add CNAME record in Cloudflare: `CNAME mazzlabs.works your-app-url.ondigitalocean.app`
-
-2. **SSL Certificate**
-   - DigitalOcean automatically provides SSL certificates
-   - Certificate will be issued once DNS propagates
 
 ## Browser Support
 
@@ -167,7 +86,7 @@ This portfolio is designed to be deployed on DigitalOcean App Platform with auto
 
 ## License
 
-This project is private and proprietary to Joseph Mazzini.
+This project is the unlicensed, publicly available portfolio of Joseph Mazzini.
 
 ## Contact
 
