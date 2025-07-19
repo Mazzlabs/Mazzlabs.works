@@ -57,11 +57,49 @@ class EnterpriseDashboard {
 
     async refreshDashboard() {
         try {
-            const response = await fetch('/api/enterprise/dashboard');
-            if (response.ok) {
-                const data = await response.json();
-                this.updateDashboardData(data);
-            }
+            // Simulate API call with mock data for now
+            const mockData = {
+                system_health: {
+                    cpu_usage: Math.random() * 100,
+                    memory_usage: Math.random() * 100,
+                    disk_usage: Math.random() * 100,
+                    response_time: 120 + Math.random() * 180,
+                    active_connections: Math.floor(100 + Math.random() * 400),
+                    network_io: 50 + Math.random() * 150
+                },
+                business_metrics: {
+                    revenue_today: 12450.75 + (Math.random() - 0.5) * 1000,
+                    active_users: Math.floor(1200 + Math.random() * 100),
+                    conversion_rate: 3.2 + (Math.random() - 0.5) * 0.5,
+                    customer_satisfaction: 4.7 + (Math.random() - 0.5) * 0.3,
+                    support_tickets: Math.floor(20 + Math.random() * 10),
+                    ai_interactions: Math.floor(Math.random() * 50)
+                },
+                security_metrics: {
+                    threat_level: ['LOW', 'MEDIUM', 'HIGH'][Math.floor(Math.random() * 3)],
+                    blocked_attempts: Math.floor(Math.random() * 20),
+                    compliance_score: 98.5 + (Math.random() - 0.5) * 2,
+                    cert_expiry_days: 45 + Math.floor(Math.random() * 10),
+                    vulnerabilities: Math.floor(Math.random() * 5)
+                },
+                cloud_metrics: {
+                    monthly_cost: 2340.50 + (Math.random() - 0.5) * 500,
+                    cost_savings: 15.2 + (Math.random() - 0.5) * 5,
+                    uptime: 99.97 + (Math.random() - 0.5) * 0.1,
+                    auto_scaling_events: Math.floor(Math.random() * 10),
+                    backup_status: ['HEALTHY', 'WARNING', 'CRITICAL'][Math.floor(Math.random() * 3)]
+                },
+                timestamp: new Date().toISOString()
+            };
+            
+            this.updateDashboardData(mockData);
+            
+            // Uncomment when backend is working:
+            // const response = await fetch('/api/enterprise/dashboard');
+            // if (response.ok) {
+            //     const data = await response.json();
+            //     this.updateDashboardData(data);
+            // }
         } catch (error) {
             console.error('Failed to refresh dashboard:', error);
         }
@@ -184,21 +222,54 @@ class EnterpriseDashboard {
         button.disabled = true;
         resultsDiv.innerHTML = '<div class="ai-thinking">🤔 Processing your request...</div>';
 
-        try {
-            const response = await fetch('/api/enterprise/ai-interaction', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ query })
-            });
+        // Simulate processing time
+        await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 2000));
 
-            if (response.ok) {
-                const data = await response.json();
-                this.displayAIResponse(data, resultsDiv);
-            } else {
-                throw new Error('AI processing failed');
+        try {
+            // Mock AI response for now
+            const responses = {
+                'revenue': `Current revenue is $${this.dashboardData?.business_metrics?.revenue_today?.toFixed(2) || '12,450.75'} today, trending up 12% from yesterday.`,
+                'users': `We have ${this.dashboardData?.business_metrics?.active_users?.toLocaleString() || '1,247'} active users with a ${this.dashboardData?.business_metrics?.conversion_rate?.toFixed(1) || '3.2'}% conversion rate.`,
+                'security': `Security status: ${this.dashboardData?.security_metrics?.threat_level || 'LOW'}. Compliance score: ${this.dashboardData?.security_metrics?.compliance_score?.toFixed(1) || '98.5'}%.`,
+                'performance': `System performing well with ${this.dashboardData?.system_health?.cpu_usage?.toFixed(1) || '45.2'}% CPU usage and ${this.dashboardData?.system_health?.response_time?.toFixed(0) || '180'}ms response time.`,
+                'cost': `Monthly cloud cost is $${this.dashboardData?.cloud_metrics?.monthly_cost?.toFixed(2) || '2,340.50'} with ${this.dashboardData?.cloud_metrics?.cost_savings?.toFixed(1) || '15.2'}% savings this month.`,
+                'default': "I'm an enterprise AI assistant. I can help with revenue analytics, user metrics, security monitoring, and system performance. What would you like to know?"
+            };
+            
+            // Simple keyword matching for demo
+            let response_key = 'default';
+            for (const key of Object.keys(responses)) {
+                if (query.toLowerCase().includes(key)) {
+                    response_key = key;
+                    break;
+                }
             }
+            
+            const mockData = {
+                response: responses[response_key],
+                query: query,
+                processing_time: 1.0 + Math.random() * 1.5,
+                confidence: 0.85 + Math.random() * 0.13,
+                timestamp: new Date().toISOString()
+            };
+            
+            this.displayAIResponse(mockData, resultsDiv);
+            
+            // Uncomment when backend is working:
+            // const response = await fetch('/api/enterprise/ai-interaction', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify({ query })
+            // });
+
+            // if (response.ok) {
+            //     const data = await response.json();
+            //     this.displayAIResponse(data, resultsDiv);
+            // } else {
+            //     throw new Error('AI processing failed');
+            // }
         } catch (error) {
             resultsDiv.innerHTML = '<div class="ai-error">Sorry, I encountered an error processing your request. Please try again.</div>';
         } finally {
@@ -230,15 +301,46 @@ class EnterpriseDashboard {
     }
 
     async loadAlerts() {
-        try {
-            const response = await fetch('/api/enterprise/alerts');
-            if (response.ok) {
-                const data = await response.json();
-                this.displayAlerts(data.alerts);
+        // Mock alerts data for now
+        const mockAlerts = [
+            {
+                id: 1,
+                type: 'security',
+                severity: 'medium',
+                message: 'Unusual login pattern detected from IP 192.168.1.100',
+                timestamp: new Date(Date.now() - 15 * 60000).toISOString(),
+                status: 'investigating'
+            },
+            {
+                id: 2,
+                type: 'performance',
+                severity: 'low',
+                message: 'Database query performance degraded by 5%',
+                timestamp: new Date(Date.now() - 2 * 3600000).toISOString(),
+                status: 'resolved'
+            },
+            {
+                id: 3,
+                type: 'business',
+                severity: 'info',
+                message: 'Conversion rate increased by 8% in last hour',
+                timestamp: new Date(Date.now() - 30 * 60000).toISOString(),
+                status: 'acknowledged'
             }
-        } catch (error) {
-            console.error('Failed to load alerts:', error);
-        }
+        ];
+        
+        this.displayAlerts(mockAlerts);
+        
+        // Uncomment when backend is working:
+        // try {
+        //     const response = await fetch('/api/enterprise/alerts');
+        //     if (response.ok) {
+        //         const data = await response.json();
+        //         this.displayAlerts(data.alerts);
+        //     }
+        // } catch (error) {
+        //     console.error('Failed to load alerts:', error);
+        // }
     }
 
     displayAlerts(alerts) {
@@ -260,15 +362,47 @@ class EnterpriseDashboard {
     }
 
     async loadCostOptimization() {
-        try {
-            const response = await fetch('/api/enterprise/cost-optimization');
-            if (response.ok) {
-                const data = await response.json();
-                this.displayCostOptimization(data);
-            }
-        } catch (error) {
-            console.error('Failed to load cost optimization:', error);
-        }
+        // Mock cost optimization data for now
+        const mockData = {
+            recommendations: [
+                {
+                    service: 'EC2 Instances',
+                    current_cost: 1250.00,
+                    potential_savings: 187.50,
+                    recommendation: 'Switch 3 instances to spot pricing during off-peak hours',
+                    impact: 'low'
+                },
+                {
+                    service: 'RDS Database',
+                    current_cost: 450.00,
+                    potential_savings: 135.00,
+                    recommendation: 'Enable automated backup retention optimization',
+                    impact: 'medium'
+                },
+                {
+                    service: 'S3 Storage',
+                    current_cost: 125.00,
+                    potential_savings: 37.50,
+                    recommendation: 'Move infrequently accessed data to Glacier',
+                    impact: 'low'
+                }
+            ],
+            total_potential_savings: 360.00,
+            current_monthly_cost: 2340.50
+        };
+        
+        this.displayCostOptimization(mockData);
+        
+        // Uncomment when backend is working:
+        // try {
+        //     const response = await fetch('/api/enterprise/cost-optimization');
+        //     if (response.ok) {
+        //         const data = await response.json();
+        //         this.displayCostOptimization(data);
+        //     }
+        // } catch (error) {
+        //     console.error('Failed to load cost optimization:', error);
+        // }
     }
 
     displayCostOptimization(data) {
