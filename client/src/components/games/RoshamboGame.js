@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   RotateCcw, 
@@ -15,11 +15,32 @@ const RoshamboGame = () => {
     computer_wins: 0,
     ties: 0,
     total_games: 0,
-    win_percentage: 0
+    win_percentage: 0,
+    session_id: null
   });
   const [lastRound, setLastRound] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [selectedChoice, setSelectedChoice] = useState(null);
+
+  useEffect(() => {
+    // Initialize game session
+    initializeGame();
+  }, []);
+
+  const initializeGame = async () => {
+    try {
+      const response = await api.post('/api/games/roshambo/', {
+        action: 'reset'
+      });
+      setGameStats(prev => ({
+        ...prev,
+        session_id: response.data.session_id,
+        ...response.data.result.stats
+      }));
+    } catch (error) {
+      console.error('Game initialization error:', error);
+    }
+  };
 
   const choices = [
     { 
@@ -47,14 +68,20 @@ const RoshamboGame = () => {
     setSelectedChoice(playerChoice);
 
     try {
-      const response = await api.post('/api/games/roshambo/play/', {
-        choice: playerChoice
+      const response = await api.post('/api/games/roshambo/', {
+        action: 'play',
+        choice: playerChoice,
+        session_id: gameStats?.session_id
       });
       
       // Add delay for suspense
       setTimeout(() => {
-        setLastRound(response.data.round);
-        setGameStats(response.data.stats);
+        setLastRound(response.data.result.round);
+        setGameStats(prev => ({
+          ...prev,
+          session_id: response.data.session_id,
+          ...response.data.result.stats
+        }));
         setIsPlaying(false);
         setSelectedChoice(null);
       }, 1500);
@@ -68,8 +95,14 @@ const RoshamboGame = () => {
 
   const resetGame = async () => {
     try {
-      const response = await api.post('/api/games/roshambo/reset/');
-      setGameStats(response.data.stats);
+      const response = await api.post('/api/games/roshambo/', {
+        action: 'reset'
+      });
+      setGameStats(prev => ({
+        ...prev,
+        session_id: response.data.session_id,
+        ...response.data.result.stats
+      }));
       setLastRound(null);
     } catch (error) {
       console.error('Game reset error:', error);

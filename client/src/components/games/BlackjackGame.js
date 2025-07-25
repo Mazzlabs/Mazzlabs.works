@@ -23,8 +23,12 @@ const BlackjackGame = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await api.post('/api/games/blackjack/start/');
-      setGameState(response.data);
+      const response = await api.post('/api/games/blackjack/', { action: 'start' });
+      setGameState({
+        ...response.data.game_state,
+        session_id: response.data.session_id,
+        stats: response.data.game_state.stats
+      });
     } catch (err) {
       setError('Failed to start game. Please try again.');
       console.error('Game start error:', err);
@@ -38,8 +42,15 @@ const BlackjackGame = () => {
     
     setIsLoading(true);
     try {
-      const response = await api.post('/api/games/blackjack/hit/');
-      setGameState(response.data);
+      const response = await api.post('/api/games/blackjack/', { 
+        action: 'hit', 
+        session_id: gameState.session_id 
+      });
+      setGameState({
+        ...response.data.game_state,
+        session_id: response.data.session_id,
+        stats: response.data.game_state.stats
+      });
     } catch (err) {
       setError('Failed to hit. Please try again.');
       console.error('Hit error:', err);
@@ -53,8 +64,15 @@ const BlackjackGame = () => {
     
     setIsLoading(true);
     try {
-      const response = await api.post('/api/games/blackjack/stand/');
-      setGameState(response.data);
+      const response = await api.post('/api/games/blackjack/', { 
+        action: 'stand', 
+        session_id: gameState.session_id 
+      });
+      setGameState({
+        ...response.data.game_state,
+        session_id: response.data.session_id,
+        stats: response.data.game_state.stats
+      });
     } catch (err) {
       setError('Failed to stand. Please try again.');
       console.error('Stand error:', err);
@@ -112,42 +130,45 @@ const BlackjackGame = () => {
       return { text: "It's a tie!", color: 'text-yellow-600' };
     } else if (winner === 'player') {
       if (player_hand.is_blackjack) {
-        return { text: 'Blackjack! You win!', color: 'text-green-600' };
+        return { text: "Blackjack! You win!", color: 'text-green-600' };
       } else if (dealer_hand.is_bust) {
-        return { text: 'Dealer busts! You win!', color: 'text-green-600' };
+        return { text: "Dealer busts! You win!", color: 'text-green-600' };
       } else {
-        return { text: 'You win!', color: 'text-green-600' };
+        return { text: "You win!", color: 'text-green-600' };
       }
     } else {
       if (player_hand.is_bust) {
-        return { text: 'Bust! You lose.', color: 'text-red-600' };
+        return { text: "Bust! You lose!", color: 'text-red-600' };
       } else if (dealer_hand.is_blackjack) {
-        return { text: 'Dealer has blackjack! You lose.', color: 'text-red-600' };
+        return { text: "Dealer has blackjack! You lose!", color: 'text-red-600' };
       } else {
-        return { text: 'Dealer wins!', color: 'text-red-600' };
+        return { text: "You lose!", color: 'text-red-600' };
       }
     }
   };
 
   if (error) {
     return (
-      <div className="text-center py-8">
-        <div className="text-red-600 mb-4">{error}</div>
-        <button
-          onClick={startNewGame}
-          className="bg-turquoise text-white px-6 py-2 rounded-lg hover:bg-turquoise-dark transition-colors"
-        >
-          Try Again
-        </button>
+      <div className="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-lg">
+        <div className="text-center">
+          <div className="text-red-600 text-xl mb-4">{error}</div>
+          <button
+            onClick={startNewGame}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors"
+          >
+            Try Again
+          </button>
+        </div>
       </div>
     );
   }
 
   if (!gameState) {
     return (
-      <div className="text-center py-8">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-turquoise mx-auto mb-4"></div>
-        <div className="text-gray-600">Loading game...</div>
+      <div className="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-lg">
+        <div className="flex items-center justify-center h-64">
+          <div className="text-lg text-gray-600">Loading game...</div>
+        </div>
       </div>
     );
   }
@@ -155,44 +176,46 @@ const BlackjackGame = () => {
   const gameMessage = getGameMessage();
 
   return (
-    <div className="max-w-4xl mx-auto">
-      {/* Game Stats */}
-      <div className="grid grid-cols-3 gap-4 mb-8">
-        <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-4 rounded-lg text-center">
-          <Trophy className="w-6 h-6 mx-auto mb-2" />
-          <div className="text-2xl font-bold">{gameState.stats.player_wins}</div>
-          <div className="text-sm opacity-90">Wins</div>
-        </div>
-        <div className="bg-gradient-to-r from-red-500 to-red-600 text-white p-4 rounded-lg text-center">
-          <Target className="w-6 h-6 mx-auto mb-2" />
-          <div className="text-2xl font-bold">{gameState.stats.dealer_wins}</div>
-          <div className="text-sm opacity-90">Losses</div>
-        </div>
-        <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white p-4 rounded-lg text-center">
-          <TrendingUp className="w-6 h-6 mx-auto mb-2" />
-          <div className="text-2xl font-bold">{gameState.stats.ties}</div>
-          <div className="text-sm opacity-90">Ties</div>
+    <div className="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-lg">
+      {/* Game Header */}
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+          <Trophy className="w-8 h-8 text-yellow-600" />
+          Blackjack
+        </h2>
+        <div className="flex gap-4 text-sm">
+          <div className="bg-green-100 px-3 py-1 rounded-lg text-center">
+            <div className="text-green-800 font-semibold">Wins</div>
+            <div className="text-2xl font-bold">{gameState.stats?.player_wins || 0}</div>
+          </div>
+          <div className="bg-red-100 px-3 py-1 rounded-lg text-center">
+            <div className="text-red-800 font-semibold">Losses</div>
+            <div className="text-2xl font-bold">{gameState.stats?.dealer_wins || 0}</div>
+          </div>
+          <div className="bg-yellow-100 px-3 py-1 rounded-lg text-center">
+            <div className="text-yellow-800 font-semibold">Ties</div>
+            <div className="text-2xl font-bold">{gameState.stats?.ties || 0}</div>
+          </div>
         </div>
       </div>
 
-      {/* Game Area */}
-      <div className="bg-gradient-to-br from-green-800 to-green-900 rounded-xl p-8 text-white shadow-xl">
-        {/* Dealer Section */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-xl font-semibold">
-              Dealer {gameState.dealer_hand.value !== null && `(${gameState.dealer_hand.value})`}
-            </h3>
-            {gameState.dealer_hand.is_bust && (
-              <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm">BUST</span>
-            )}
-            {gameState.dealer_hand.is_blackjack && (
-              <span className="bg-yellow-500 text-black px-3 py-1 rounded-full text-sm">BLACKJACK</span>
-            )}
-          </div>
-          <div className="flex space-x-2 justify-center">
-            {gameState.dealer_hand.cards.map((card, index) => 
-              renderCard(card, index, card.hidden)
+      {/* Game Board */}
+      <div className="space-y-8">
+        {/* Dealer's Hand */}
+        <div className="bg-green-100 p-4 rounded-lg">
+          <h3 className="text-lg font-semibold mb-3 text-gray-800 flex items-center gap-2">
+            <Target className="w-5 h-5" />
+            Dealer {gameState.dealer_hand?.value !== null && `(${gameState.dealer_hand.value})`}
+          </h3>
+          {gameState.dealer_hand?.is_bust && (
+            <div className="text-red-600 font-bold mb-2">BUST!</div>
+          )}
+          {gameState.dealer_hand?.is_blackjack && (
+            <div className="text-yellow-600 font-bold mb-2">BLACKJACK!</div>
+          )}
+          <div className="flex gap-2 flex-wrap">
+            {gameState.dealer_hand?.cards?.map((card, index) => 
+              renderCard(card, index, !gameState.game_over && index === 1)
             )}
           </div>
         </div>
@@ -201,73 +224,78 @@ const BlackjackGame = () => {
         <AnimatePresence>
           {gameMessage && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              className="text-center mb-6"
+              exit={{ opacity: 0, scale: 0.9 }}
+              className="text-center py-4"
             >
-              <div className={`text-2xl font-bold ${gameMessage.color} bg-white/10 backdrop-blur-sm rounded-lg py-3 px-6 inline-block`}>
+              <div className={`text-3xl font-bold ${gameMessage.color}`}>
                 {gameMessage.text}
               </div>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Player Section */}
-        <div>
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-xl font-semibold">
-              Player ({gameState.player_hand.value})
-            </h3>
-            {gameState.player_hand.is_bust && (
-              <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm">BUST</span>
-            )}
-            {gameState.player_hand.is_blackjack && (
-              <span className="bg-yellow-500 text-black px-3 py-1 rounded-full text-sm">BLACKJACK</span>
-            )}
-          </div>
-          <div className="flex space-x-2 justify-center mb-6">
-            {gameState.player_hand.cards.map((card, index) => 
+        {/* Player's Hand */}
+        <div className="bg-blue-100 p-4 rounded-lg">
+          <h3 className="text-lg font-semibold mb-3 text-gray-800 flex items-center gap-2">
+            <Target className="w-5 h-5" />
+            Player ({gameState.player_hand?.value})
+          </h3>
+          {gameState.player_hand?.is_bust && (
+            <div className="text-red-600 font-bold mb-2">BUST!</div>
+          )}
+          {gameState.player_hand?.is_blackjack && (
+            <div className="text-yellow-600 font-bold mb-2">BLACKJACK!</div>
+          )}
+          <div className="flex gap-2 flex-wrap">
+            {gameState.player_hand?.cards?.map((card, index) => 
               renderCard(card, index)
             )}
           </div>
         </div>
 
         {/* Game Controls */}
-        <div className="flex justify-center space-x-4">
+        <div className="flex justify-center gap-4">
           {!gameState.game_over ? (
             <>
-              <button
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={hit}
                 disabled={isLoading}
-                className="bg-yellow-500 hover:bg-yellow-600 disabled:opacity-50 text-black font-semibold py-3 px-6 rounded-lg transition-colors flex items-center"
+                className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white px-6 py-3 rounded-lg font-semibold transition-colors flex items-center gap-2"
               >
-                <Play className="w-5 h-5 mr-2" />
+                <TrendingUp className="w-5 h-5" />
                 Hit
-              </button>
-              <button
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={stand}
                 disabled={isLoading}
-                className="bg-red-500 hover:bg-red-600 disabled:opacity-50 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center"
+                className="bg-red-600 hover:bg-red-700 disabled:bg-gray-400 text-white px-6 py-3 rounded-lg font-semibold transition-colors flex items-center gap-2"
               >
-                <Target className="w-5 h-5 mr-2" />
+                <Target className="w-5 h-5" />
                 Stand
-              </button>
+              </motion.button>
             </>
           ) : (
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={startNewGame}
               disabled={isLoading}
-              className="bg-turquoise hover:bg-turquoise-dark disabled:opacity-50 text-white font-semibold py-3 px-8 rounded-lg transition-colors flex items-center"
+              className="bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white px-6 py-3 rounded-lg font-semibold transition-colors flex items-center gap-2"
             >
-              <RotateCcw className="w-5 h-5 mr-2" />
+              <Play className="w-5 h-5" />
               New Game
-            </button>
+            </motion.button>
           )}
         </div>
 
-        {/* Cards Remaining */}
-        <div className="text-center mt-6 text-sm opacity-75">
+        {/* Game Info */}
+        <div className="text-center text-sm text-gray-600">
           Cards remaining: {gameState.cards_remaining}
         </div>
       </div>
