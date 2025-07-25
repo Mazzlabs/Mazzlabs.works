@@ -23,8 +23,9 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = [
-    # Essential Django apps for API functionality
-    'django.contrib.auth',          # Required by DRF for authentication
+    # Essential Django apps for API with auth support
+    'django.contrib.auth',          # Required for DRF authentication  
+    'django.contrib.sessions',      # Required for auth middleware
     'django.contrib.contenttypes',  # Required for some Django internals
     'django.contrib.staticfiles',   # For serving static files
     'rest_framework',               # Django REST framework
@@ -37,6 +38,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
