@@ -18,21 +18,8 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-dev-key-change-in-pro
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-# Allowed hosts - includes internal Digital Ocean IPs for health checks
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1,lionfish-app.ondigitalocean.app', cast=lambda v: [s.strip() for s in v.split(',')])
-
-# Add internal IP patterns for Digital Ocean health checks
-import re
-class AllowInternalIPsMiddleware:
-    def __init__(self, get_response):
-        self.get_response = get_response
-
-    def __call__(self, request):
-        # Allow internal 10.x.x.x IPs for health checks
-        host = request.get_host()
-        if re.match(r'^10\.\d+\.\d+\.\d+(:\d+)?$', host):
-            request.META['HTTP_HOST'] = 'lionfish-app.ondigitalocean.app'
-        return self.get_response(request)
+# Allowed hosts - allow all for Digital Ocean health checks
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = [
@@ -47,7 +34,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'mazzlabs_api.settings.AllowInternalIPsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.common.CommonMiddleware',
