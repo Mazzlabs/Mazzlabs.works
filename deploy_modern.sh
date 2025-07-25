@@ -9,10 +9,10 @@ echo "🚀 MazzLabs Portfolio Deployment Script"
 echo "========================================"
 
 # Configuration
-APP_ID="77272f8d-14a7-49b8-8552-6a0fd37793b3"
-APP_NAME="mazzlabs-portfolio"
-DOMAIN="whale-app-m552s.ondigitalocean.app"
-PROJECT_NAME="mazzlabs-portfolio"
+APP_ID="lionfish-app"  # Will be updated once we get the actual app ID
+APP_NAME="lionfish-app"
+DOMAIN="lionfish-app.ondigitalocean.app"
+PROJECT_NAME="lionfish-app"
 
 # Colors for output
 RED='\033[0;31m'

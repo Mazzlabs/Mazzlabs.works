@@ -1,4 +1,4 @@
-name: mazzlabs-portfolio
+name: lionfish-app
 services:
 - name: backend
   source_dir: /server
@@ -28,7 +28,7 @@ services:
     type: SECRET
   - key: ALLOWED_HOSTS
     scope: RUN_TIME
-    value: whale-app-m552s.ondigitalocean.app,localhost,127.0.0.1
+    value: lionfish-app.ondigitalocean.app,localhost,127.0.0.1
 - name: frontend
   source_dir: /client
   github:
@@ -45,8 +45,8 @@ services:
   envs:
   - key: REACT_APP_API_URL
     scope: BUILD_TIME
-    value: https://whale-app-m552s.ondigitalocean.app
+    value: https://lionfish-app.ondigitalocean.app
 domains:
-- domain: whale-app-m552s.ondigitalocean.app
+- domain: lionfish-app.ondigitalocean.app
   type: PRIMARY
   minimum_tls_version: "1.2"
