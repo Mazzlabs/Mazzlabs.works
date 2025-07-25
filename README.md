@@ -1,13 +1,69 @@
-# Joseph Mazzini's Portfolio Website
+# MazzLabs Portfolio - Joseph Mazzini
 
-A modern, responsive portfolio website built with HTML5, CSS3, JavaScript (ES6), and a Python Flask backend.
+## 🚀 Modern Full-Stack Architecture
 
-## Features
+This portfolio demonstrates a modern React/Django/MongoDB architecture, showcasing both technical proficiency and strategic project management from concept to production.
 
-- **Responsive Design**: Granite and turquoise color scheme with modern UI/UX
-- **Interactive Games**: Browser-based Python games (Blackjack and Adaptive Rock-Paper-Scissors)
-- **Dynamic Resume**: PDF generation and download functionality
-- **Contact Form**: Backend-powered contact form with email notifications
+> **📖 For complete documentation, architecture details, and technical implementation, see [README_MODERN.md](./README_MODERN.md)**
+
+## 🎯 Quick Overview
+
+**Modern Tech Stack:**
+- **Frontend**: React 18 + Tailwind CSS + Framer Motion
+- **Backend**: Django REST Framework + MongoDB
+- **Deployment**: Digital Ocean + Docker
+
+**Key Features:**
+
+**Key Features:**
+- **Professional Portfolio**: Showcase of full-stack development capabilities
+- **Interactive Games**: React-based Blackjack and Rock-Paper-Scissors demos
+- **Modern Architecture**: Complete migration documentation and implementation
+- **Production Ready**: Docker containerization and Digital Ocean deployment
+- **Project Management**: Living demonstration of technical evolution
+
+## 🛠️ Development Setup
+
+### Prerequisites
+- Node.js 16+ and npm
+- Python 3.11+
+- MongoDB (local or Atlas)
+
+### Quick Start
+```bash
+# Backend
+cd server
+pip install -r requirements.txt
+python manage.py runserver
+
+# Frontend  
+cd client
+npm install
+npm start
+```
+
+## 📁 Project Structure
+```
+├── client/          # React frontend application
+├── server/          # Django REST API backend
+├── assets/          # Static assets (resume, images)
+├── certificates/    # TLS certificates
+└── README_MODERN.md # Complete documentation
+```
+
+## 🌟 Live Demo
+- **Portfolio**: [mazzlabs.works](https://mazzlabs.works)
+- **Games Demo**: [mazzlabs.works/games](https://mazzlabs.works/games)
+
+## 📞 Contact
+**Joseph Mazzini**  
+📧 joseph@mazzlabs.works  
+💼 [LinkedIn](https://linkedin.com/in/joseph-mazzini)  
+🔗 [GitHub](https://github.com/Mazzlabs)
+
+---
+
+*This project demonstrates modern web development practices, architectural decision-making, and the ability to deliver scalable solutions from concept to production deployment.*
 - **Project Showcase**: Detailed project presentations with live links
 - **Professional Experience**: Comprehensive work history and skills
 

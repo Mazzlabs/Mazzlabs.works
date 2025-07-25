@@ -1,0 +1,58 @@
+/* Additional custom styles for React app */
+.App {
+  min-height: 100vh;
+}
+
+/* Smooth scrolling for navigation */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom loading animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Game card animations */
+@keyframes deal-card {
+  from {
+    transform: translateX(-100px) rotate(-180deg);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.card-deal {
+  animation: deal-card 0.5s ease-out;
+}
+
+/* Button hover effects */
+.btn-hover-lift {
+  transition: transform 0.2s ease;
+}
+
+.btn-hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+/* Gradient text effect */
+.gradient-text {
+  background: linear-gradient(135deg, #20a0a0, #40c0c0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Custom focus styles */
+.focus-outline {
+  outline: 2px solid #20a0a0;
+  outline-offset: 2px;
+}
