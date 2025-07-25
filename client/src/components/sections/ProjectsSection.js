@@ -5,51 +5,71 @@ import { Folder, ExternalLink, Github, Play, Code } from 'lucide-react';
 const ProjectsSection = () => {
   const projects = [
     {
-      title: "Portfolio Evolution",
-      category: "Full-Stack Development",
-      description: "Complete migration from Flask/Vanilla JS to React/Django stack, demonstrating modern development practices and architectural decision-making.",
-      technologies: ["React", "Django", "MongoDB", "Docker", "Digital Ocean"],
+      title: "Rip City Ticket Dispatch",
+      category: "Full-Stack Event Platform",
+      description: "Portland's premier event ticket aggregation platform with AI-powered deal scoring, real-time price tracking, and multi-channel notifications. Features comprehensive subscription tiers and certified API integrations.",
+      technologies: ["React 19", "Node.js", "Express", "MongoDB", "Ticketmaster API", "Eventbrite API", "Digital Ocean"],
       features: [
-        "Responsive React components with Tailwind CSS",
-        "RESTful API with Django REST Framework",
-        "MongoDB integration with MongoEngine ODM",
-        "Interactive game demonstrations",
-        "Production-ready deployment pipeline"
+        "Real-time event aggregation from Ticketmaster & Eventbrite APIs",
+        "AI-powered deal scoring and price tracking algorithms", 
+        "Multi-channel notifications (SMS, email, webhooks)",
+        "Subscription management with Stripe integration",
+        "Comprehensive legal documentation for API approvals",
+        "Professional responsive design with Portland Trail Blazers theming"
       ],
-      liveUrl: "https://mazzlabs.works",
-      githubUrl: "https://github.com/Mazzlabs/Mazzlabs.works",
-      status: "In Development",
+      liveUrl: "https://ripcityticketdispatch.works",
+      githubUrl: "https://github.com/J-mazz/ripcityticketdispatch.works",
+      status: "Production",
       image: "/api/placeholder/600/400"
     },
     {
-      title: "Interactive Game Suite",
-      category: "Frontend Development",
-      description: "Browser-based games (Blackjack, Rock-Paper-Scissors) showcasing vanilla JavaScript to React component migration and state management.",
-      technologies: ["React Hooks", "Framer Motion", "Game Logic", "State Management"],
+      title: "Veritas-Lens",
+      category: "Machine Learning & NLP",
+      description: "Political bias detection system using BERT transformers for news article classification. Features active learning, live data aggregation, and comprehensive backend API with Digital Ocean deployment.",
+      technologies: ["TensorFlow", "BERT", "Python", "Node.js", "PostgreSQL", "Digital Ocean", "Active Learning"],
       features: [
-        "Real-time game state management",
-        "Smooth animations and transitions",
-        "Responsive design for all devices",
-        "Score tracking and statistics",
-        "Modular component architecture"
+        "Fine-tuned BERT model for political bias classification",
+        "Active learning pipeline for continuous model improvement",
+        "RSS feed aggregation and web scraping automation",
+        "RESTful API with authentication and role management",
+        "Real-time bias prediction with confidence scoring",
+        "Production deployment with H100 GPU support"
       ],
-      demoUrl: "/games",
-      githubUrl: "https://github.com/Mazzlabs/Mazzlabs.works/tree/main/client/src/components/games",
-      status: "Active",
+      githubUrl: "https://github.com/J-mazz/Veritas-Lens",
+      status: "Research Project",
       image: "/api/placeholder/600/400"
     },
     {
-      title: "Contact & Resume System",
-      category: "Backend Integration",
-      description: "Professional contact form with email integration and resume download tracking, demonstrating API design and data persistence.",
-      technologies: ["Django REST", "SMTP Integration", "File Handling", "Analytics"],
+      title: "CodeGen Fine-Tuning Pipeline",
+      category: "Deep Learning & Code Generation",
+      description: "Advanced active learning pipeline for fine-tuning Salesforce CodeGen models on multi-language code datasets. Features phased training, memory optimization, and comprehensive evaluation metrics.",
+      technologies: ["PyTorch", "Transformers", "Hugging Face", "Multi-GPU", "Active Learning", "Datasets API"],
       features: [
-        "Secure contact form processing",
-        "Email notifications and confirmations",
-        "Resume download tracking and analytics",
-        "Rate limiting and validation",
-        "Professional email templates"
+        "Multi-stage preprocessing for Python, C++, Java, and Rust datasets",
+        "Phased active learning with language-specific curricula",
+        "Advanced memory optimization for large model training",
+        "Comprehensive deduplication and characterization pipeline",
+        "Mixed precision training with gradient clipping",
+        "Detailed evaluation with entity-level metrics"
       ],
+      githubUrl: "https://github.com/J-mazz/codegen-finetune",
+      status: "Research Project",
+      image: "/api/placeholder/600/400"
+    },
+    {
+      title: "Robust-Cite",
+      category: "NER & Citation Processing",
+      description: "BERT-based Named Entity Recognition system for academic citation parsing. Achieves 99.97% validation accuracy in extracting bibliographic components with production-ready architecture.",
+      technologies: ["TensorFlow", "BERT", "Mixed Precision", "Google Colab", "BIO Tagging", "Citation Processing"],
+      features: [
+        "High-performance NER model (99.97% validation accuracy)",
+        "Comprehensive bibliographic entity extraction (Author, Title, Journal, etc.)",
+        "Mixed precision training optimized for A100 GPUs",
+        "Robust data preprocessing with XML parsing and tokenization",
+        "Production-ready model persistence and evaluation pipeline",
+        "Scalable architecture for large-scale citation processing"
+      ],
+      githubUrl: "https://github.com/J-mazz/robust-cite",
       status: "Production Ready",
       image: "/api/placeholder/600/400"
     }
@@ -57,9 +77,9 @@ const ProjectsSection = () => {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'Active':
+      case 'Production':
         return 'bg-green-100 text-green-800';
-      case 'In Development':
+      case 'Research Project':
         return 'bg-turquoise-light bg-opacity-20 text-turquoise-dark';
       case 'Production Ready':
         return 'bg-blue-100 text-blue-800';
@@ -83,9 +103,9 @@ const ProjectsSection = () => {
             Project Showcase
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Each project demonstrates specific aspects of modern web development, 
-            from initial concept through production deployment, showcasing both 
-            technical implementation and project management capabilities.
+            Diverse portfolio spanning full-stack web applications, machine learning research, 
+            and specialized NLP systems. Each project demonstrates end-to-end development 
+            from research and architecture through production deployment.
           </p>
         </motion.div>
 
@@ -204,15 +224,15 @@ const ProjectsSection = () => {
           className="text-center mt-16"
         >
           <div className="bg-gradient-to-r from-granite-dark to-granite-medium p-8 rounded-xl text-white">
-            <h3 className="text-2xl font-bold mb-4">Development Approach</h3>
+            <h3 className="text-2xl font-bold mb-4">Development Philosophy</h3>
             <p className="text-lg opacity-90 max-w-3xl mx-auto leading-relaxed">
-              Each project follows industry best practices: thorough planning, iterative development, 
-              comprehensive testing, and thoughtful deployment strategies. This portfolio itself 
-              serves as a case study in modern web development project management.
+              From Portland event platforms to AI research systems, each project represents 
+              a commitment to technical excellence, scalable architecture, and real-world impact. 
+              Combining academic rigor with production-ready implementation.
             </p>
             <div className="mt-6">
               <a
-                href="https://github.com/Mazzlabs"
+                href="https://github.com/J-mazz"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center px-6 py-3 bg-turquoise hover:bg-turquoise-dark transition-colors rounded-lg font-semibold"

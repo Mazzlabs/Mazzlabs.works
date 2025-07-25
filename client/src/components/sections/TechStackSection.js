@@ -5,7 +5,6 @@ import {
   Server, 
   Globe, 
   Layers, 
-  GitBranch, 
   Cloud,
   ArrowRight,
   CheckCircle
@@ -36,29 +35,6 @@ const TechStackSection = () => {
       icon: Cloud,
       technologies: ["Digital Ocean", "Docker", "GitHub Actions", "Nginx"],
       color: "from-purple-500 to-purple-600"
-    }
-  ];
-
-  const migrationSteps = [
-    {
-      phase: "Legacy Stack",
-      description: "Flask + Vanilla JS + Static Files",
-      status: "completed"
-    },
-    {
-      phase: "Backend Migration",
-      description: "Django REST API + MongoDB Integration",
-      status: "completed"
-    },
-    {
-      phase: "Frontend Modernization",
-      description: "React Components + State Management",
-      status: "current"
-    },
-    {
-      phase: "Production Deployment",
-      description: "Digital Ocean + CI/CD Pipeline",
-      status: "upcoming"
     }
   ];
 
@@ -169,53 +145,6 @@ const TechStackSection = () => {
                 </div>
                 <p className="text-sm text-gray-600">Infrastructure Layer</p>
               </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Migration Timeline */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <h3 className="text-2xl font-bold text-granite-dark text-center mb-8">
-            Development & Migration Timeline
-          </h3>
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {migrationSteps.map((step, index) => (
-                <div key={index} className="relative">
-                  <div className={`p-6 rounded-xl border-2 transition-all ${
-                    step.status === 'completed' 
-                      ? 'border-green-500 bg-green-50' 
-                      : step.status === 'current'
-                      ? 'border-turquoise bg-turquoise-light bg-opacity-10'
-                      : 'border-gray-300 bg-gray-50'
-                  }`}>
-                    <div className="flex items-center mb-3">
-                      {step.status === 'completed' && (
-                        <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
-                      )}
-                      {step.status === 'current' && (
-                        <GitBranch className="w-5 h-5 text-turquoise mr-2" />
-                      )}
-                      {step.status === 'upcoming' && (
-                        <div className="w-5 h-5 border-2 border-gray-400 rounded-full mr-2"></div>
-                      )}
-                      <span className="text-sm font-semibold text-granite-dark">
-                        Phase {index + 1}
-                      </span>
-                    </div>
-                    <h4 className="font-bold text-granite-dark mb-2">{step.phase}</h4>
-                    <p className="text-sm text-gray-600">{step.description}</p>
-                  </div>
-                  {index < migrationSteps.length - 1 && (
-                    <ArrowRight className="hidden lg:block absolute top-1/2 -right-2 transform -translate-y-1/2 w-4 h-4 text-turquoise" />
-                  )}
-                </div>
-              ))}
             </div>
           </div>
         </motion.div>
