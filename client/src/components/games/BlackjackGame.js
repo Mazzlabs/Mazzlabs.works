@@ -4,7 +4,7 @@ import {
   Play, 
   RotateCcw, 
   TrendingUp, 
-  Cards,
+  CreditCard,
   Trophy,
   Target
 } from 'lucide-react';
@@ -73,7 +73,7 @@ const BlackjackGame = () => {
           transition={{ duration: 0.5, delay: index * 0.1 }}
           className="w-16 h-24 bg-gradient-to-br from-blue-900 to-blue-700 rounded-lg shadow-lg flex items-center justify-center border-2 border-blue-600"
         >
-          <Cards className="w-8 h-8 text-blue-300" />
+          <CreditCard className="w-8 h-8 text-blue-300" />
         </motion.div>
       );
     }
