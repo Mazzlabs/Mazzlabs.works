@@ -18,7 +18,7 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-dev-key-change-in-pro
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=lambda v: [s.strip() for s in v.split(',')])
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1,whale-app-m552s.ondigitalocean.app', cast=lambda v: [s.strip() for s in v.split(',')])
 
 # Application definition
 INSTALLED_APPS = [
@@ -68,7 +68,7 @@ WSGI_APPLICATION = 'mazzlabs_api.wsgi.application'
 
 # MongoDB Configuration
 MONGODB_SETTINGS = {
-    'host': config('MONGODB_URI', default='mongodb://localhost:27017/mazzlabs_db'),
+    'host': config('MONGODB_URI', default='mongodb+srv://doadmin:3FHt5081KM9ykr47@db-mongodb-nyc3-90149-031b6365.mongo.ondigitalocean.com/admin?replicaSet=db-mongodb-nyc3-90149&tls=true&authSource=admin'),
     'connect': False,
 }
 
@@ -101,6 +101,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "https://mazzlabs.works",
     "https://www.mazzlabs.works",
+    "https://whale-app-m552s.ondigitalocean.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True

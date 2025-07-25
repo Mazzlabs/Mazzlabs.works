@@ -1,35 +1,52 @@
 name: mazzlabs-portfolio
 services:
-- name: web
-  source_dir: /
+- name: backend
+  source_dir: /server
   github:
     repo: Mazzlabs/Mazzlabs.works
     branch: main
-  dockerfile_path: Dockerfile
+  run_command: gunicorn --worker-tmp-dir /dev/shm mazzlabs_api.wsgi:application
+  environment_slug: python
   instance_count: 1
   instance_size_slug: basic-xxs
-  http_port: 8080
+  http_port: 8000
   routes:
-  - path: /
+  - path: /api
+  - path: /admin
   health_check:
-    http_path: /health
+    http_path: /api/health
   envs:
+  - key: DEBUG
+    scope: RUN_TIME
+    value: "False"
+  - key: MONGODB_URI
+    scope: RUN_TIME
+    value: mongodb+srv://doadmin:3FHt5081KM9ykr47@db-mongodb-nyc3-90149-031b6365.mongo.ondigitalocean.com/admin?replicaSet=db-mongodb-nyc3-90149&tls=true&authSource=admin
+    type: SECRET
   - key: SECRET_KEY
     scope: RUN_TIME
     type: SECRET
-  - key: CONTACT_EMAIL
+  - key: ALLOWED_HOSTS
     scope: RUN_TIME
-    value: joseph@mazzlabs.works
-  - key: FLASK_ENV
-    scope: RUN_TIME
-    value: production
-  - key: EMAIL_USERNAME
-    scope: RUN_TIME
-    type: SECRET
-  - key: EMAIL_PASSWORD
-    scope: RUN_TIME
-    type: SECRET
+    value: whale-app-m552s.ondigitalocean.app,localhost,127.0.0.1
+- name: frontend
+  source_dir: /client
+  github:
+    repo: Mazzlabs/Mazzlabs.works
+    branch: main
+  build_command: npm run build
+  run_command: npx serve -s build -p $PORT
+  environment_slug: node-js
+  instance_count: 1
+  instance_size_slug: basic-xxs
+  http_port: 3000
+  routes:
+  - path: /
+  envs:
+  - key: REACT_APP_API_URL
+    scope: BUILD_TIME
+    value: https://whale-app-m552s.ondigitalocean.app
 domains:
-- domain: mazzlabs.works
+- domain: whale-app-m552s.ondigitalocean.app
   type: PRIMARY
   minimum_tls_version: "1.2"
