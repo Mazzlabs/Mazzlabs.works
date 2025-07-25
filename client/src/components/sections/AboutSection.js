@@ -42,10 +42,9 @@ const AboutSection = () => {
               software development practices, from initial concept through production deployment.
             </p>
             <p className="text-lg text-gray-600 leading-relaxed">
-              Originally built with a traditional Flask/JavaScript stack, this site has been 
-              <span className="text-turquoise font-semibold"> architected and migrated</span> to 
-              showcase modern full-stack development using React, Django REST Framework, and MongoDB, 
-              demonstrating both technical proficiency and strategic project evolution.
+              Built with <span className="text-turquoise font-semibold">modern full-stack technologies</span> 
+              including React, Django REST Framework, and MongoDB, this portfolio demonstrates 
+              professional-grade development practices and contemporary software architecture patterns.
             </p>
           </div>
         </motion.div>
