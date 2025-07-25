@@ -23,7 +23,8 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = [
-    # Only keep essential Django apps for our API
+    # Essential Django apps for API functionality
+    'django.contrib.auth',          # Required by DRF for authentication
     'django.contrib.contenttypes',  # Required for some Django internals
     'django.contrib.staticfiles',   # For serving static files
     'rest_framework',               # Django REST framework
@@ -38,6 +39,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
