@@ -27,7 +27,7 @@ services:
     type: SECRET
   - key: ALLOWED_HOSTS
     scope: RUN_TIME
-    value: lionfish-app.ondigitalocean.app,localhost,127.0.0.1
+    value: lionfish-app.ondigitalocean.app,localhost,127.0.0.1,10.244.18.26,10.244.18.25
 - name: frontend
   source_dir: /client
   github:
@@ -48,11 +48,6 @@ ingress:
   - match:
       path:
         prefix: /api
-    component:
-      name: backend
-  - match:
-      path:
-        prefix: /admin
     component:
       name: backend
   - match:
