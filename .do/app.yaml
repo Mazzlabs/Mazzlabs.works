@@ -27,7 +27,7 @@ services:
     type: SECRET
   - key: ALLOWED_HOSTS
     scope: RUN_TIME
-    value: lionfish-app.ondigitalocean.app,localhost,127.0.0.1,10.244.18.26,10.244.18.25
+    value: lionfish-app-la4hl.ondigitalocean.app,lionfish-app.ondigitalocean.app,localhost,127.0.0.1,10.244.18.26,10.244.18.25
 - name: frontend
   source_dir: /client
   github:
@@ -42,7 +42,7 @@ services:
   envs:
   - key: REACT_APP_API_URL
     scope: BUILD_TIME
-    value: https://lionfish-app.ondigitalocean.app
+    value: https://lionfish-app-la4hl.ondigitalocean.app
 ingress:
   rules:
   - match:
