@@ -5,13 +5,14 @@ URL configuration for mazzlabs_api project.
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, throttle_classes
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import JsonResponse, HttpResponse
 import json
 
 @api_view(['GET'])
+@throttle_classes([])  # Disable throttling for health checks
 def health_check(request):
     """Health check endpoint for monitoring - returns 200 OK"""
     try:
